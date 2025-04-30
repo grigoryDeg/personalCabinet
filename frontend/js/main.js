@@ -133,3 +133,22 @@ function addMessage(text, type) {
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
+// Добавляем обработчик для отправки сообщений по Enter
+document.addEventListener('DOMContentLoaded', function() {
+    const userMessageInput = document.getElementById('userMessage');
+    
+    if (userMessageInput) {
+        userMessageInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+});
+
+// Автоматически фокусируемся на поле ввода при открытии чата
+document.getElementById('chatWidget').addEventListener('shown.bs.collapse', function () {
+    document.getElementById('userMessage').focus();
+});
