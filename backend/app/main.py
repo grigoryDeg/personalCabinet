@@ -48,9 +48,9 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 # Функция для инициализации тестовых пользователей
 def init_test_users():
     default_users = [
-        {"username": "admin", "password": "admin123"},
-        {"username": "user1", "password": "password1"},
-        {"username": "user2", "password": "password2"}
+        {"username": "grigory", "password": "mypass1"},
+        {"username": "user1", "password": "password11"},
+        {"username": "user2", "password": "password22"}
     ]
     
     for user in default_users:

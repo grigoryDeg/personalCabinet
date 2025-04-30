@@ -1,0 +1,137 @@
+/* Стили для страницы вопроса */
+.back-link {
+    color: #764ba2;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #667eea;
+    transform: translateX(-5px);
+}
+
+.question-content {
+    margin: 30px 0;
+}
+
+.question-card {
+    background: linear-gradient(145deg, #ffffff, #f5f7fa);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.question-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(118, 75, 162, 0.15);
+}
+
+.question-text {
+    margin-bottom: 30px;
+}
+
+.question-text h3 {
+    color: #2d3748;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.question-text p {
+    color: #4a5568;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.answer-form h3 {
+    color: #2d3748;
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.answer-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: vertical;
+    min-height: 150px;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.answer-form textarea:focus {
+    border-color: #764ba2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+}
+
+/* Адаптивность для страницы вопроса */
+@media (max-width: 768px) {
+    .question-card {
+        padding: 20px;
+    }
+    
+    .back-link {
+        font-size: 14px;
+    }
+    
+    .submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .question-text h3,
+    .answer-form h3 {
+        font-size: 18px;
+    }
+}
+
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+    transform: scale(1.1);
+}
+
+.site-logo {
+    width: 40px;
+    height: 40px;
+}
+
+@media (max-width: 768px) {
+    .site-logo {
+        width: 30px;
+        height: 30px;
+    }
+}

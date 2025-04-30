@@ -47,15 +47,10 @@ async function loadProfile() {
         
         const profile = await response.json();
         
-        // Определяем, на какой странице мы находимся
-        const isDashboard = window.location.pathname.includes('dashboard.html');
-        
-        if (isDashboard) {
-            document.getElementById('username').textContent = profile.username;
-        } else {
-            document.getElementById('profileData').innerHTML = `
-                <h3>Добро пожаловать, ${profile.username}!</h3>
-            `;
+        // Обновляем имя пользователя на всех страницах
+        const usernameElement = document.getElementById('username');
+        if (usernameElement) {
+            usernameElement.textContent = profile.username;
         }
     } catch (error) {
         console.error('Ошибка:', error);
@@ -72,20 +67,18 @@ function logout() {
 window.onload = function() {
     const token = localStorage.getItem('token');
     const isDashboard = window.location.pathname.includes('dashboard.html');
+    const isQuestion = window.location.pathname.includes('question.html');
     
     if (!token) {
-        if (isDashboard) {
+        if (isDashboard || isQuestion) {
             window.location.href = '/';
         }
         return;
     }
     
-    if (isDashboard) {
+    // Загружаем профиль для всех авторизованных страниц
+    if (isDashboard || isQuestion) {
         loadProfile();
-    } else {
-        // Если мы на главной странице и есть токен,
-        // перенаправляем на dashboard
-        window.location.href = '/dashboard.html';
     }
 };
 
@@ -148,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Автоматически фокусируемся на поле ввода при открытии чата
-document.getElementById('chatWidget').addEventListener('shown.bs.collapse', function () {
-    document.getElementById('userMessage').focus();
-});
+function navigateToQuestionPage(event) {
+    event.preventDefault();
+    window.location.href = '/question.html';
+}
