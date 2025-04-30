@@ -1,0 +1,1249 @@
+2025-04-25 08:51:08,581 - uvicorn.error - INFO - Started server process [1]
+2025-04-25 08:51:08,582 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-25 08:51:08,582 - uvicorn.error - INFO - Application startup complete.
+2025-04-25 08:51:08,582 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-25 09:07:48,356 - uvicorn.error - INFO - Shutting down
+2025-04-25 09:07:48,457 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-25 09:07:48,458 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-25 09:07:48,458 - uvicorn.error - INFO - Finished server process [1]
+2025-04-25 09:07:59,206 - uvicorn.error - INFO - Started server process [1]
+2025-04-25 09:07:59,207 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-25 09:07:59,207 - uvicorn.error - INFO - Application startup complete.
+2025-04-25 09:07:59,207 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-25 09:08:19,166 - main - INFO - Попытка входа пользователя: admin
+2025-04-25 09:08:19,169 - main - WARNING - Неудачная попытка входа: пользователь admin не найден
+2025-04-25 09:16:16,446 - main - INFO - Попытка входа пользователя: admin
+2025-04-25 09:16:16,450 - main - INFO - Успешный вход пользователя: admin
+2025-04-25 09:16:16,460 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-25 09:16:16,461 - main - INFO - Запрос профиля пользователя: admin
+2025-04-25 09:32:14,085 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-25 09:32:14,086 - main - INFO - Запрос профиля пользователя: admin
+2025-04-25 09:44:48,320 - uvicorn.error - INFO - Shutting down
+2025-04-25 09:44:48,423 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-25 09:44:48,423 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-25 09:44:48,423 - uvicorn.error - INFO - Finished server process [1]
+2025-04-25 09:44:57,009 - uvicorn.error - INFO - Started server process [1]
+2025-04-25 09:44:57,009 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-25 09:44:57,010 - uvicorn.error - INFO - Application startup complete.
+2025-04-25 09:44:57,010 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-25 09:45:01,901 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-25 09:45:01,902 - main - INFO - Запрос профиля пользователя: admin
+2025-04-25 09:45:23,317 - main - INFO - Попытка входа пользователя: user1
+2025-04-25 09:45:23,318 - main - WARNING - Неудачная попытка входа: пользователь user1 не найден
+2025-04-25 09:45:39,427 - uvicorn.error - INFO - Shutting down
+2025-04-25 09:45:39,530 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-25 09:45:39,531 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-25 09:45:39,531 - uvicorn.error - INFO - Finished server process [1]
+2025-04-25 09:45:45,515 - uvicorn.error - INFO - Started server process [1]
+2025-04-25 09:45:45,516 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-25 09:45:45,516 - main - INFO - Инициализация тестовых пользователей
+2025-04-25 09:45:45,517 - main - INFO - Создан тестовый пользователь: admin
+2025-04-25 09:45:45,518 - main - INFO - Создан тестовый пользователь: user1
+2025-04-25 09:45:45,518 - main - INFO - Создан тестовый пользователь: user2
+2025-04-25 09:45:45,518 - main - INFO - Инициализация завершена
+2025-04-25 09:45:45,518 - uvicorn.error - INFO - Application startup complete.
+2025-04-25 09:45:45,518 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-25 09:46:00,203 - main - INFO - Попытка входа пользователя: user1
+2025-04-25 09:46:00,205 - main - INFO - Успешный вход пользователя: user1
+2025-04-25 09:46:00,214 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-25 09:46:00,214 - main - INFO - Запрос профиля пользователя: user1
+2025-04-25 09:46:37,849 - main - INFO - Попытка входа пользователя: admin
+2025-04-25 09:46:37,850 - main - INFO - Успешный вход пользователя: admin
+2025-04-25 09:46:37,857 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-25 09:46:37,857 - main - INFO - Запрос профиля пользователя: admin
+2025-04-25 10:56:54,675 - uvicorn.error - INFO - Shutting down
+2025-04-25 10:56:54,780 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-25 10:56:54,780 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-25 10:56:54,780 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:21:18,113 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:21:18,113 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:21:18,113 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:21:18,115 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:21:18,115 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:21:18,115 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:21:18,115 - main - INFO - Инициализация завершена
+2025-04-27 19:21:18,115 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:21:18,115 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:21:40,726 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:21:40,733 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:21:42,258 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:21:42,259 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:22:36,827 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:22:36,927 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:22:36,928 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:22:36,928 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:22:44,214 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:22:44,214 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:22:44,214 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:22:44,216 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:22:44,216 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:22:44,216 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:22:44,216 - main - INFO - Инициализация завершена
+2025-04-27 19:22:44,216 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:22:44,217 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:22:48,564 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:22:48,565 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:22:49,891 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:22:49,891 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:22:50,799 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:22:50,799 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:22:57,793 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:22:57,795 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:22:57,827 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:22:57,828 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:25:27,540 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:25:27,641 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:25:27,642 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:25:27,642 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:25:34,157 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:25:34,157 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:25:34,157 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:25:34,158 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:25:34,159 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:25:34,159 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:25:34,159 - main - INFO - Инициализация завершена
+2025-04-27 19:25:34,159 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:25:34,159 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:25:37,682 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:25:37,683 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:25:38,664 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:25:38,665 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:26:06,018 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:26:06,018 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:26:07,838 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:26:07,839 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:26:07,886 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:26:07,887 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:28:16,878 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:28:16,981 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:28:16,981 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:28:16,982 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:30:01,480 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:30:01,481 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:30:01,481 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:30:01,482 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:30:01,483 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:30:01,483 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:30:01,483 - main - INFO - Инициализация завершена
+2025-04-27 19:30:01,483 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:30:01,483 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:30:13,868 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:30:13,871 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:30:13,942 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:30:13,942 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:30:34,884 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:30:34,987 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:30:34,988 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:30:34,988 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:33:08,563 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:33:08,563 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:33:08,563 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:33:08,564 - main - INFO - Инициализация завершена
+2025-04-27 19:33:08,564 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:33:08,565 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:33:14,362 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:33:14,366 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:33:14,439 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:33:14,440 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:37:51,028 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:37:51,129 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:37:51,129 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:37:51,129 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:38:04,116 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:38:04,116 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:38:04,117 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:38:04,118 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:38:04,118 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:38:04,118 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:38:04,118 - main - INFO - Инициализация завершена
+2025-04-27 19:38:04,118 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:38:04,119 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:38:07,398 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:38:07,398 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:38:08,255 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:38:08,255 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:38:15,769 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:38:15,770 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:38:15,814 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:38:15,814 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:39:45,908 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:39:46,009 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:39:46,009 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:39:46,010 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:40:29,345 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:40:29,345 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:40:29,346 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:40:29,347 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:40:29,347 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:40:29,348 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:40:29,348 - main - INFO - Инициализация завершена
+2025-04-27 19:40:29,348 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:40:29,348 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:40:32,443 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:40:32,443 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:40:33,182 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:40:33,182 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:40:39,891 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:40:39,892 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:40:39,919 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:40:39,919 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:43:05,011 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:43:05,013 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:43:05,085 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:43:05,085 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:43:48,901 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:43:48,902 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:43:48,973 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:43:48,973 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:45:55,212 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:45:55,213 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:46:55,269 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:46:55,370 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:46:55,370 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:46:55,370 - uvicorn.error - INFO - Finished server process [1]
+2025-04-27 19:47:03,940 - uvicorn.error - INFO - Started server process [1]
+2025-04-27 19:47:03,941 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-27 19:47:03,941 - main - INFO - Инициализация тестовых пользователей
+2025-04-27 19:47:03,942 - main - INFO - Создан тестовый пользователь: admin
+2025-04-27 19:47:03,942 - main - INFO - Создан тестовый пользователь: user1
+2025-04-27 19:47:03,943 - main - INFO - Создан тестовый пользователь: user2
+2025-04-27 19:47:03,943 - main - INFO - Инициализация завершена
+2025-04-27 19:47:03,943 - uvicorn.error - INFO - Application startup complete.
+2025-04-27 19:47:03,943 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-27 19:47:13,272 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:47:13,275 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:47:13,307 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:47:13,307 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:47:27,365 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:47:27,365 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:48:23,100 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:48:23,101 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:48:37,757 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:48:37,757 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:48:47,136 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:48:47,137 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:48:58,054 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:48:58,055 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:48:58,098 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:48:58,098 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:49:17,680 - main - INFO - Попытка входа пользователя: admin
+2025-04-27 19:49:17,681 - main - INFO - Успешный вход пользователя: admin
+2025-04-27 19:49:17,710 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-27 19:49:17,710 - main - INFO - Запрос профиля пользователя: admin
+2025-04-27 19:49:52,356 - uvicorn.error - INFO - Shutting down
+2025-04-27 19:49:52,457 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-27 19:49:52,457 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-27 19:49:52,457 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 06:59:07,736 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 06:59:07,736 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 06:59:07,736 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 06:59:07,737 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 06:59:07,738 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 06:59:07,738 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 06:59:07,738 - main - INFO - Инициализация завершена
+2025-04-28 06:59:07,738 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 06:59:07,738 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 06:59:18,416 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 06:59:18,420 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 06:59:18,450 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-28 06:59:18,451 - main - INFO - Запрос профиля пользователя: admin
+2025-04-28 06:59:53,681 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 06:59:53,682 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 06:59:54,418 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-28 06:59:54,419 - main - INFO - Запрос профиля пользователя: admin
+2025-04-28 07:01:57,830 - uvicorn.error - INFO - Shutting down
+2025-04-28 07:01:57,932 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 07:01:57,932 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 07:01:57,932 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 07:02:05,840 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 07:02:05,840 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 07:02:05,840 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 07:02:05,841 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 07:02:05,842 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 07:02:05,842 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 07:02:05,842 - main - INFO - Инициализация завершена
+2025-04-28 07:02:05,842 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 07:02:05,842 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 07:02:24,676 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:02:24,680 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 07:03:37,018 - uvicorn.error - INFO - Shutting down
+2025-04-28 07:03:37,120 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 07:03:37,121 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 07:03:37,121 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 07:03:45,875 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 07:03:45,875 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 07:03:45,876 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 07:03:45,877 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 07:03:45,877 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 07:03:45,877 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 07:03:45,877 - main - INFO - Инициализация завершена
+2025-04-28 07:03:45,878 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 07:03:45,878 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 07:04:03,179 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:04:03,184 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 07:05:07,201 - uvicorn.error - INFO - Shutting down
+2025-04-28 07:05:07,302 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 07:05:07,302 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 07:05:07,302 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 07:05:14,094 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 07:05:14,094 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 07:05:14,094 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 07:05:14,095 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 07:05:14,095 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 07:05:14,096 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 07:05:14,096 - main - INFO - Инициализация завершена
+2025-04-28 07:05:14,096 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 07:05:14,096 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 07:05:24,844 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:05:24,847 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 07:07:00,645 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:07:00,646 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 07:14:32,929 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:14:32,930 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 07:15:42,516 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:15:42,517 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 07:16:03,489 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 07:16:03,490 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 08:12:52,010 - uvicorn.error - INFO - Shutting down
+2025-04-28 08:12:52,111 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 08:12:52,111 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 08:12:52,111 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 08:13:02,960 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 08:13:02,961 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 08:13:02,961 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 08:13:02,962 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 08:13:02,962 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 08:13:02,963 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 08:13:02,963 - main - INFO - Инициализация завершена
+2025-04-28 08:13:02,963 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 08:13:02,963 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 08:13:16,401 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 08:13:16,405 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 08:18:22,210 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-28 08:18:22,211 - main - INFO - Запрос профиля пользователя: admin
+2025-04-28 08:19:02,957 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 08:19:02,959 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 08:19:04,123 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 08:19:04,124 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 08:19:04,258 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-28 08:19:04,259 - main - INFO - Запрос профиля пользователя: admin
+2025-04-28 08:32:45,252 - uvicorn.error - INFO - Shutting down
+2025-04-28 08:32:45,357 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 08:32:45,357 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 08:32:45,357 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 08:32:54,067 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 08:32:54,067 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 08:32:54,067 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 08:32:54,069 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 08:32:54,069 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 08:32:54,069 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 08:32:54,069 - main - INFO - Инициализация завершена
+2025-04-28 08:32:54,069 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 08:32:54,069 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 08:33:00,408 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-28 08:33:00,409 - main - INFO - Запрос профиля пользователя: admin
+2025-04-28 08:36:21,429 - uvicorn.error - INFO - Shutting down
+2025-04-28 08:36:21,534 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 08:36:21,534 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 08:36:21,534 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 08:36:27,836 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 08:36:27,836 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 08:36:27,836 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 08:36:27,838 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 08:36:27,838 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 08:36:27,838 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 08:36:27,838 - main - INFO - Инициализация завершена
+2025-04-28 08:36:27,838 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 08:36:27,839 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 08:36:38,006 - main - INFO - Попытка входа пользователя: admin
+2025-04-28 08:36:38,009 - main - INFO - Успешный вход пользователя: admin
+2025-04-28 08:36:38,510 - main - INFO - Успешная аутентификация пользователя: admin
+2025-04-28 08:36:38,511 - main - INFO - Запрос профиля пользователя: admin
+2025-04-28 08:37:04,450 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 08:37:04,451 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 08:37:04,947 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 08:37:04,947 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 08:37:22,653 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 08:37:22,654 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 08:37:22,712 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 08:37:22,713 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 08:38:35,131 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 08:38:35,132 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 08:38:35,177 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 08:38:35,177 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 08:39:18,704 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 08:39:18,705 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 08:39:18,740 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 08:39:18,741 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 08:49:19,733 - uvicorn.error - INFO - Shutting down
+2025-04-28 08:49:19,835 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 08:49:19,835 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 08:49:19,835 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:25:40,318 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:25:40,319 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:25:40,319 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:25:40,320 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:25:40,320 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:25:40,320 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:25:40,320 - main - INFO - Инициализация завершена
+2025-04-28 09:25:40,320 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:25:40,321 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:25:46,117 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,141 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,162 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,179 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,196 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,213 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,230 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,246 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,263 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,279 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,296 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,313 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,330 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,347 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,364 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,380 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,396 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,413 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,429 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,446 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,463 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,480 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,497 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,514 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,530 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,546 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,562 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,579 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,595 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,613 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,629 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,645 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,666 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,684 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,699 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,714 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,741 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,760 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,776 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,793 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,810 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,826 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,848 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,866 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,882 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,901 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,930 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,952 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,971 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:46,988 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,007 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,024 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,040 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,057 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,074 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,090 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,107 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,176 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,194 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,211 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,228 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,245 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,261 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,279 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,295 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,312 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,328 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,345 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,362 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,378 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,395 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,412 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,429 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,445 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,462 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,478 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,495 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,512 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,529 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,545 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,562 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,578 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,595 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,612 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,629 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,646 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,662 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,682 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,698 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,714 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,730 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,746 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,762 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,779 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,795 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,812 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,829 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,845 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,862 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,879 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,895 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,914 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,930 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,946 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,962 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,978 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:47,995 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,017 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,035 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,054 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,071 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,088 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,105 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,122 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,138 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,155 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,172 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,187 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,203 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,220 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,237 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,253 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,270 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,287 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,303 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,320 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,337 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,353 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,370 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,387 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,403 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,420 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,437 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,453 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,470 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,489 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,504 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,521 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,538 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,554 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,570 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,587 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,603 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,620 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,637 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,653 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,670 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,687 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,703 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,720 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,736 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,753 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,770 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,786 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,803 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,820 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,836 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,853 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,872 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,888 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,903 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,920 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,937 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,954 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,970 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:48,987 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,003 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,020 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,036 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,053 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,069 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,086 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,103 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,120 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,137 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,171 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,188 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,205 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,221 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,237 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,256 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,271 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,287 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,304 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,322 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,339 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,354 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,370 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,386 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,403 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,419 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,437 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,453 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,470 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,487 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,503 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,520 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,537 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,553 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,570 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:49,586 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,218 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,232 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,246 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,260 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,274 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,294 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,308 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,321 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,334 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,349 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,364 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,378 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,390 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,404 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,418 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,431 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,445 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,460 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,472 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,486 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,498 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,512 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,527 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,539 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,553 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,567 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,580 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,596 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,610 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,622 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,635 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,650 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,662 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,675 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,688 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,701 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,713 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,726 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,740 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,753 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,765 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,780 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,794 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,808 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,823 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,836 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,851 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,863 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,875 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,888 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,902 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,917 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,929 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,941 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,957 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,971 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,985 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:53,997 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,012 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,027 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,058 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,079 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,096 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,112 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,128 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,145 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,170 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,187 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,202 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,218 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,234 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,251 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,268 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,284 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,301 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,317 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,334 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,351 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,368 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,384 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,401 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,418 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,434 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,451 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,468 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,484 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,501 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,520 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,536 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,552 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,570 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,587 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,604 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,620 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,637 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,654 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,670 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,686 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,702 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,718 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,735 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,752 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,768 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,784 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,801 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,818 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,836 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,852 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,867 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,884 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,901 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,917 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,935 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,950 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,967 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:54,984 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,001 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,017 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,034 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,051 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,067 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,084 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,100 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,117 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,134 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,150 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,167 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,184 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,200 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,217 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,234 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,251 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,267 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,284 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,302 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,317 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,334 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,350 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,367 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,384 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,400 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,417 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,433 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,450 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,467 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,484 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,501 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,517 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,534 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,550 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,567 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,584 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,600 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,617 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,634 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,652 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,670 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,691 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,709 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,727 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,743 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,759 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,776 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,793 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,808 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,825 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,842 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,859 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,876 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,892 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,909 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,925 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,942 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,958 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,975 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:55,992 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,009 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,025 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,042 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,059 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,075 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,091 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,109 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,127 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,143 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,158 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,175 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,192 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,209 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,225 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,242 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,258 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,275 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,291 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,308 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,325 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,342 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,358 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,375 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,392 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:25:56,409 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 09:26:04,776 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:26:04,777 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:26:04,815 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:26:04,816 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:27:48,351 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:27:48,353 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:27:48,387 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:27:48,387 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:28:22,373 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:28:22,374 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:28:22,410 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:28:22,410 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:21,207 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:32:21,308 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:32:21,308 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:32:21,308 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:32:29,986 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:32:29,987 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:32:29,987 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:32:29,988 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:32:29,988 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:32:29,989 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:32:29,989 - main - INFO - Инициализация завершена
+2025-04-28 09:32:29,989 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:32:29,989 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:32:37,533 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:37,533 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:43,637 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:43,638 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:45,051 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:45,051 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:46,848 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:46,848 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:47,692 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:47,692 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:48,383 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:48,383 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:49,032 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:49,032 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:49,521 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:49,522 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:50,066 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:50,066 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:50,538 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:50,539 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:51,112 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:51,113 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:51,579 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:51,580 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:52,258 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:52,259 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:32:52,786 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:32:52,786 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:34:12,153 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:34:12,153 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:34:17,124 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:34:17,124 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:34:29,906 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:34:29,907 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:34:50,211 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:34:50,211 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:35:03,483 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:35:03,484 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:35:04,201 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:35:04,201 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:35:53,375 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:35:53,476 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:35:53,477 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:35:53,477 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:36:04,838 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:36:04,838 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:36:04,839 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:36:04,840 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:36:04,840 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:36:04,841 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:36:04,841 - main - INFO - Инициализация завершена
+2025-04-28 09:36:04,841 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:36:04,841 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:36:14,390 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:36:14,391 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:40:20,052 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:40:20,152 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:40:20,153 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:40:20,153 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:40:27,258 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:40:27,259 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:40:27,259 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:40:27,260 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:40:27,261 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:40:27,261 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:40:27,261 - main - INFO - Инициализация завершена
+2025-04-28 09:40:27,261 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:40:27,261 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:40:32,147 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:40:32,148 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:40:41,234 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:40:41,235 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:45:11,136 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:45:11,239 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:45:11,239 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:45:11,240 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:45:17,581 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:45:17,581 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:45:17,581 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:45:17,583 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:45:17,583 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:45:17,583 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:45:17,583 - main - INFO - Инициализация завершена
+2025-04-28 09:45:17,583 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:45:17,583 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:45:22,684 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:45:22,685 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:45:32,389 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:45:32,389 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:46:27,780 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:46:27,781 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:47:51,965 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:47:52,066 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:47:52,066 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:47:52,066 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:47:57,183 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:47:57,183 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:47:57,183 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:47:57,184 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:47:57,184 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:47:57,185 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:47:57,185 - main - INFO - Инициализация завершена
+2025-04-28 09:47:57,185 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:47:57,185 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:47:59,986 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:47:59,986 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:01,423 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:01,423 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:04,998 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:48:05,000 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:48:05,033 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:05,033 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:11,372 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:11,373 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:32,521 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:48:32,522 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:48:32,558 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:32,558 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:36,151 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:36,152 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:51,834 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:48:51,835 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:48:51,867 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:51,867 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:48:56,213 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:48:56,213 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:51:20,176 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:51:20,281 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:51:20,281 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:51:20,281 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 09:51:27,459 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 09:51:27,459 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 09:51:27,459 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 09:51:27,460 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 09:51:27,461 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 09:51:27,461 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 09:51:27,461 - main - INFO - Инициализация завершена
+2025-04-28 09:51:27,461 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 09:51:27,461 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 09:51:30,286 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:51:30,286 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:51:36,452 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:51:36,452 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:51:45,810 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:51:45,811 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:51:45,845 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:51:45,846 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:52:01,608 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 09:52:01,608 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 09:52:01,650 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:52:01,650 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:52:05,402 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 09:52:05,403 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 09:55:08,642 - uvicorn.error - INFO - Shutting down
+2025-04-28 09:55:08,744 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 09:55:08,744 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 09:55:08,744 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 13:00:34,900 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 13:00:34,900 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 13:00:34,900 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 13:00:34,901 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 13:00:34,901 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 13:00:34,901 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 13:00:34,902 - main - INFO - Инициализация завершена
+2025-04-28 13:00:34,902 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 13:00:34,902 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 13:00:57,510 - uvicorn.error - INFO - Shutting down
+2025-04-28 13:00:57,614 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 13:00:57,614 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 13:00:57,614 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 13:01:26,738 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 13:01:26,738 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 13:01:26,738 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 13:01:26,739 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 13:01:26,740 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 13:01:26,740 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 13:01:26,740 - main - INFO - Инициализация завершена
+2025-04-28 13:01:26,740 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 13:01:26,740 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 13:01:30,886 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 13:01:36,139 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 13:01:36,140 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 13:01:36,184 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 13:01:36,184 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 13:03:00,870 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 13:03:00,871 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 13:03:00,906 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 13:03:00,906 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 13:25:58,721 - uvicorn.error - INFO - Shutting down
+2025-04-28 13:25:58,823 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 13:25:58,823 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 13:25:58,823 - uvicorn.error - INFO - Finished server process [1]
+2025-04-28 18:54:33,031 - uvicorn.error - INFO - Started server process [1]
+2025-04-28 18:54:33,031 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-28 18:54:33,032 - main - INFO - Инициализация тестовых пользователей
+2025-04-28 18:54:33,033 - main - INFO - Создан тестовый пользователь: admin
+2025-04-28 18:54:33,033 - main - INFO - Создан тестовый пользователь: user1
+2025-04-28 18:54:33,034 - main - INFO - Создан тестовый пользователь: user2
+2025-04-28 18:54:33,034 - main - INFO - Инициализация завершена
+2025-04-28 18:54:33,034 - uvicorn.error - INFO - Application startup complete.
+2025-04-28 18:54:33,034 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-28 18:54:38,756 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-28 18:54:53,571 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 18:54:53,572 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 18:54:53,608 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 18:54:53,609 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 18:55:09,402 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 18:55:09,402 - main - WARNING - Неудачная попытка входа: неверный пароль для пользователя user1
+2025-04-28 18:55:18,260 - main - INFO - Попытка входа пользователя: user1
+2025-04-28 18:55:18,262 - main - INFO - Успешный вход пользователя: user1
+2025-04-28 18:55:18,304 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-28 18:55:18,304 - main - INFO - Запрос профиля пользователя: user1
+2025-04-28 18:57:11,973 - uvicorn.error - INFO - Shutting down
+2025-04-28 18:57:12,078 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-28 18:57:12,079 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-28 18:57:12,079 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 09:43:20,036 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 09:43:20,036 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 09:43:20,036 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 09:43:20,037 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 09:43:20,037 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 09:43:20,037 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 09:43:20,037 - main - INFO - Инициализация завершена
+2025-04-29 09:43:20,037 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 09:43:20,038 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 09:43:25,215 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 09:43:27,364 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 09:43:27,366 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 09:43:27,396 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:43:27,397 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 09:50:57,112 - uvicorn.error - INFO - Shutting down
+2025-04-29 09:50:57,217 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 09:50:57,217 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 09:50:57,217 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 09:51:05,429 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 09:51:05,429 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 09:51:05,430 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 09:51:05,431 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 09:51:05,431 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 09:51:05,431 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 09:51:05,431 - main - INFO - Инициализация завершена
+2025-04-29 09:51:05,431 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 09:51:05,432 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 09:51:08,900 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:51:08,900 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 09:51:12,984 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:51:14,323 - together - INFO - error_code=invalid_api_key error_message='Invalid API key provided. You can find your API key at https://api.together.xyz/settings/api-keys.' error_param=None error_type=invalid_request_error message='Together API error received' stream_error=False
+2025-04-29 09:52:31,870 - uvicorn.error - INFO - Shutting down
+2025-04-29 09:52:31,973 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 09:52:31,973 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 09:52:31,973 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 09:52:38,500 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 09:52:38,501 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 09:52:38,501 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 09:52:38,502 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 09:52:38,502 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 09:52:38,502 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 09:52:38,502 - main - INFO - Инициализация завершена
+2025-04-29 09:52:38,502 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 09:52:38,503 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 09:52:41,088 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:52:41,089 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 09:52:46,588 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:52:47,780 - together - INFO - error_code=invalid_api_key error_message='Invalid API key provided. You can find your API key at https://api.together.xyz/settings/api-keys.' error_param=None error_type=invalid_request_error message='Together API error received' stream_error=False
+2025-04-29 09:53:57,712 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:53:58,950 - together - INFO - error_code=invalid_api_key error_message='Invalid API key provided. You can find your API key at https://api.together.xyz/settings/api-keys.' error_param=None error_type=invalid_request_error message='Together API error received' stream_error=False
+2025-04-29 09:54:10,050 - uvicorn.error - INFO - Shutting down
+2025-04-29 09:54:10,155 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 09:54:10,155 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 09:54:10,155 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 09:54:20,184 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 09:54:20,184 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 09:54:20,184 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 09:54:20,186 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 09:54:20,186 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 09:54:20,186 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 09:54:20,186 - main - INFO - Инициализация завершена
+2025-04-29 09:54:20,186 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 09:54:20,187 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 09:54:23,531 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:54:23,532 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 09:54:29,588 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 09:54:57,327 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 12:33:43,713 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 12:34:14,789 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 12:34:16,414 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 12:34:16,416 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 12:34:16,489 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 12:34:16,490 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 12:34:34,462 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 13:09:56,485 - uvicorn.error - INFO - Shutting down
+2025-04-29 13:09:56,588 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 13:09:56,589 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 13:09:56,589 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 13:10:04,338 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 13:10:04,338 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 13:10:04,339 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 13:10:04,339 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 13:10:04,340 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 13:10:04,340 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 13:10:04,340 - main - INFO - Инициализация завершена
+2025-04-29 13:10:04,340 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 13:10:04,340 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 13:10:07,050 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 13:10:07,061 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 13:10:08,585 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 13:10:08,587 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 13:10:08,650 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 13:10:08,666 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 13:10:08,666 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 14:03:31,054 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 14:03:31,062 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 14:03:32,593 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 14:03:32,594 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 14:03:32,653 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:03:32,667 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:03:32,668 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 14:09:29,166 - uvicorn.error - INFO - Shutting down
+2025-04-29 14:09:29,267 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 14:09:29,267 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 14:09:29,267 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 14:09:37,871 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 14:09:37,871 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 14:09:37,872 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 14:09:37,872 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 14:09:37,873 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 14:09:37,873 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 14:09:37,873 - main - INFO - Инициализация завершена
+2025-04-29 14:09:37,873 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 14:09:37,873 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 14:09:40,715 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:09:40,723 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:09:40,724 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 14:09:40,731 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:09:57,691 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:09:57,703 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:09:57,704 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 14:09:57,711 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:13:08,839 - uvicorn.error - INFO - Shutting down
+2025-04-29 14:13:08,941 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 14:13:08,941 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 14:13:08,941 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 14:13:18,340 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 14:13:18,340 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 14:13:18,340 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 14:13:18,341 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 14:13:18,341 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 14:13:18,341 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 14:13:18,341 - main - INFO - Инициализация завершена
+2025-04-29 14:13:18,341 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 14:13:18,342 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 14:13:21,108 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:13:21,108 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 14:13:21,117 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:53:41,734 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 14:53:48,746 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 14:53:50,081 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 14:53:50,083 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 14:53:50,153 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:53:50,154 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 14:53:50,160 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:53:55,104 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 14:54:13,371 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 15:11:17,324 - uvicorn.error - INFO - Shutting down
+2025-04-29 15:11:17,425 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 15:11:17,425 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 15:11:17,425 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 19:12:06,228 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 19:12:06,228 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 19:12:06,229 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 19:12:06,229 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 19:12:06,229 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 19:12:06,230 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 19:12:06,230 - main - INFO - Инициализация завершена
+2025-04-29 19:12:06,230 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 19:12:06,230 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 19:12:14,415 - main - ERROR - Ошибка при проверке JWT токена
+2025-04-29 19:12:17,060 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 19:12:17,062 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 19:12:17,097 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:12:17,097 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 19:12:19,814 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 19:12:19,815 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 19:12:19,851 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:12:19,851 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 19:12:23,335 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 19:12:23,336 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 19:12:23,375 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:12:23,376 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 19:12:26,556 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 19:12:26,557 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 19:12:26,604 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:12:26,605 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 19:13:17,211 - uvicorn.error - INFO - Shutting down
+2025-04-29 19:13:17,313 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 19:13:17,313 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 19:13:17,313 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 19:13:23,692 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 19:13:23,693 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 19:13:23,694 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 19:13:23,694 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 19:13:23,694 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 19:13:23,695 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 19:13:23,695 - main - INFO - Инициализация завершена
+2025-04-29 19:13:23,695 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 19:13:23,695 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 19:13:27,015 - main - INFO - Попытка входа пользователя: user1
+2025-04-29 19:13:27,018 - main - INFO - Успешный вход пользователя: user1
+2025-04-29 19:13:27,061 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:13:27,062 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 19:14:53,494 - uvicorn.error - INFO - Shutting down
+2025-04-29 19:14:53,595 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 19:14:53,596 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 19:14:53,596 - uvicorn.error - INFO - Finished server process [1]
+2025-04-29 19:14:58,308 - uvicorn.error - INFO - Started server process [1]
+2025-04-29 19:14:58,308 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-29 19:14:58,308 - main - INFO - Инициализация тестовых пользователей
+2025-04-29 19:14:58,309 - main - INFO - Создан тестовый пользователь: admin
+2025-04-29 19:14:58,309 - main - INFO - Создан тестовый пользователь: user1
+2025-04-29 19:14:58,309 - main - INFO - Создан тестовый пользователь: user2
+2025-04-29 19:14:58,309 - main - INFO - Инициализация завершена
+2025-04-29 19:14:58,309 - uvicorn.error - INFO - Application startup complete.
+2025-04-29 19:14:58,310 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-29 19:15:00,576 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:15:00,577 - main - INFO - Запрос профиля пользователя: user1
+2025-04-29 19:15:25,903 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:16:04,757 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:16:22,239 - main - INFO - Успешная аутентификация пользователя: user1
+2025-04-29 19:16:55,628 - uvicorn.error - INFO - Shutting down
+2025-04-29 19:16:55,730 - uvicorn.error - INFO - Waiting for application shutdown.
+2025-04-29 19:16:55,730 - uvicorn.error - INFO - Application shutdown complete.
+2025-04-29 19:16:55,730 - uvicorn.error - INFO - Finished server process [1]
