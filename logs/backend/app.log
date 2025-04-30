@@ -1,37 +1,11 @@
-2025-04-30 12:58:47,774 - uvicorn.error - INFO - Started server process [1]
-2025-04-30 12:58:47,774 - uvicorn.error - INFO - Waiting for application startup.
-2025-04-30 12:58:47,775 - main - INFO - Инициализация тестовых пользователей
-2025-04-30 12:58:47,775 - main - INFO - Создан тестовый пользователь: admin
-2025-04-30 12:58:47,775 - main - INFO - Создан тестовый пользователь: user1
-2025-04-30 12:58:47,776 - main - INFO - Создан тестовый пользователь: user2
-2025-04-30 12:58:47,776 - main - INFO - Инициализация завершена
-2025-04-30 12:58:47,776 - uvicorn.error - INFO - Application startup complete.
-2025-04-30 12:58:47,776 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-2025-04-30 12:58:52,713 - main - ERROR - Ошибка при проверке JWT токена
-2025-04-30 12:58:54,305 - main - INFO - Попытка входа пользователя: user1
-2025-04-30 12:58:54,306 - main - INFO - Успешный вход пользователя: user1
-2025-04-30 12:58:54,338 - main - INFO - Успешная аутентификация пользователя: user1
-2025-04-30 12:58:54,339 - main - INFO - Запрос профиля пользователя: user1
-2025-04-30 13:00:40,272 - main - INFO - Попытка входа пользователя: user1
-2025-04-30 13:00:40,273 - main - INFO - Успешный вход пользователя: user1
-2025-04-30 13:00:40,354 - main - INFO - Успешная аутентификация пользователя: user1
-2025-04-30 13:00:40,356 - main - INFO - Запрос профиля пользователя: user1
-2025-04-30 13:02:52,601 - uvicorn.error - INFO - Shutting down
-2025-04-30 13:02:52,703 - uvicorn.error - INFO - Waiting for application shutdown.
-2025-04-30 13:02:52,703 - uvicorn.error - INFO - Application shutdown complete.
-2025-04-30 13:02:52,703 - uvicorn.error - INFO - Finished server process [1]
-2025-04-30 13:02:57,532 - uvicorn.error - INFO - Started server process [1]
-2025-04-30 13:02:57,532 - uvicorn.error - INFO - Waiting for application startup.
-2025-04-30 13:02:57,532 - main - INFO - Инициализация тестовых пользователей
-2025-04-30 13:02:57,533 - main - INFO - Создан тестовый пользователь: admin
-2025-04-30 13:02:57,533 - main - INFO - Создан тестовый пользователь: user1
-2025-04-30 13:02:57,534 - main - INFO - Создан тестовый пользователь: user2
-2025-04-30 13:02:57,534 - main - INFO - Инициализация завершена
-2025-04-30 13:02:57,534 - uvicorn.error - INFO - Application startup complete.
-2025-04-30 13:02:57,534 - uvicorn.error - INFO - Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-2025-04-30 13:03:01,576 - main - INFO - Успешная аутентификация пользователя: user1
-2025-04-30 13:03:01,576 - main - INFO - Запрос профиля пользователя: user1
-2025-04-30 13:03:08,005 - main - INFO - Попытка входа пользователя: user1
-2025-04-30 13:03:08,007 - main - INFO - Успешный вход пользователя: user1
-2025-04-30 13:03:08,095 - main - INFO - Успешная аутентификация пользователя: user1
-2025-04-30 13:03:08,095 - main - INFO - Запрос профиля пользователя: user1
+2025-04-30 17:26:01,540 - uvicorn.error - INFO - Will watch for changes in these directories: ['/app']
+2025-04-30 17:26:01,541 - uvicorn.error - INFO - Uvicorn running on https://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-30 17:26:01,541 - uvicorn.error - INFO - Started reloader process [1] using statreload
+2025-04-30 17:26:01,854 - uvicorn.error - INFO - Started server process [8]
+2025-04-30 17:26:01,855 - uvicorn.error - INFO - Waiting for application startup.
+2025-04-30 17:26:01,855 - main - INFO - Инициализация тестовых пользователей
+2025-04-30 17:26:01,858 - main - INFO - Создан тестовый пользователь: admin
+2025-04-30 17:26:01,859 - main - INFO - Создан тестовый пользователь: user1
+2025-04-30 17:26:01,859 - main - INFO - Создан тестовый пользователь: user2
+2025-04-30 17:26:01,859 - main - INFO - Инициализация завершена
+2025-04-30 17:26:01,859 - uvicorn.error - INFO - Application startup complete.

@@ -5,7 +5,7 @@ async function login(event) {
     const password = document.getElementById('password').value;
     
     try {
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://' + window.location.host + '/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

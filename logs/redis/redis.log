@@ -1,29 +1,8 @@
-10:C 30 Apr 2025 12:56:00.544 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-10:C 30 Apr 2025 12:56:00.545 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-10:C 30 Apr 2025 12:56:00.545 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=10, just started
-10:C 30 Apr 2025 12:56:00.546 * Configuration loaded
-10:M 30 Apr 2025 12:56:00.547 * monotonic clock: POSIX clock_gettime
-10:M 30 Apr 2025 12:56:00.547 * Running mode=standalone, port=6379.
-10:M 30 Apr 2025 12:56:00.548 * Server initialized
-10:M 30 Apr 2025 12:56:00.549 * Ready to accept connections tcp
-1:C 30 Apr 2025 12:58:47.383 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-1:C 30 Apr 2025 12:58:47.384 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-1:C 30 Apr 2025 12:58:47.386 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
-1:C 30 Apr 2025 12:58:47.387 * Configuration loaded
-1:M 30 Apr 2025 12:58:47.387 * monotonic clock: POSIX clock_gettime
-1:M 30 Apr 2025 12:58:47.388 * Running mode=standalone, port=6379.
-1:M 30 Apr 2025 12:58:47.388 * Server initialized
-1:M 30 Apr 2025 12:58:47.389 * Ready to accept connections tcp
-1:signal-handler (1746018172) Received SIGTERM scheduling shutdown...
-1:M 30 Apr 2025 13:02:52.908 * User requested shutdown...
-1:M 30 Apr 2025 13:02:52.909 * Saving the final RDB snapshot before exiting.
-1:M 30 Apr 2025 13:02:52.912 * DB saved on disk
-1:M 30 Apr 2025 13:02:52.913 # Redis is now ready to exit, bye bye...
-1:C 30 Apr 2025 13:02:57.100 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-1:C 30 Apr 2025 13:02:57.102 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-1:C 30 Apr 2025 13:02:57.103 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
-1:C 30 Apr 2025 13:02:57.104 * Configuration loaded
-1:M 30 Apr 2025 13:02:57.105 * monotonic clock: POSIX clock_gettime
-1:M 30 Apr 2025 13:02:57.105 * Running mode=standalone, port=6379.
-1:M 30 Apr 2025 13:02:57.106 * Server initialized
-1:M 30 Apr 2025 13:02:57.107 * Ready to accept connections tcp
+1:C 30 Apr 2025 17:26:01.078 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 30 Apr 2025 17:26:01.080 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 30 Apr 2025 17:26:01.083 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 30 Apr 2025 17:26:01.083 * Configuration loaded
+1:M 30 Apr 2025 17:26:01.084 * monotonic clock: POSIX clock_gettime
+1:M 30 Apr 2025 17:26:01.085 * Running mode=standalone, port=6379.
+1:M 30 Apr 2025 17:26:01.085 * Server initialized
+1:M 30 Apr 2025 17:26:01.086 * Ready to accept connections tcp

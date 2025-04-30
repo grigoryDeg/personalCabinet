@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
+import uvicorn
 from together import Together
 import redis
 import json
@@ -163,3 +164,17 @@ app.include_router(router)
 async def health_check():
     logger.info("Проверка работоспособности API")
     return {"status": "ok"}
+
+# Настройки SSL
+ssl_keyfile = "/etc/ssl/nginx.key"
+ssl_certfile = "/etc/ssl/nginx.crt"
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        ssl_keyfile=ssl_keyfile,
+        ssl_certfile=ssl_certfile,
+        reload=True
+    )
