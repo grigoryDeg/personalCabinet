@@ -1,8 +1,13 @@
-1:C 30 Apr 2025 20:17:49.582 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-1:C 30 Apr 2025 20:17:49.584 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-1:C 30 Apr 2025 20:17:49.586 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
-1:C 30 Apr 2025 20:17:49.586 * Configuration loaded
-1:M 30 Apr 2025 20:17:49.587 * monotonic clock: POSIX clock_gettime
-1:M 30 Apr 2025 20:17:49.588 * Running mode=standalone, port=6379.
-1:M 30 Apr 2025 20:17:49.588 * Server initialized
-1:M 30 Apr 2025 20:17:49.589 * Ready to accept connections tcp
+1:C 05 May 2025 09:48:09.116 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 05 May 2025 09:48:09.118 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 05 May 2025 09:48:09.119 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 05 May 2025 09:48:09.119 * Configuration loaded
+1:M 05 May 2025 09:48:09.120 * monotonic clock: POSIX clock_gettime
+1:M 05 May 2025 09:48:09.121 * Running mode=standalone, port=6379.
+1:M 05 May 2025 09:48:09.122 * Server initialized
+1:M 05 May 2025 09:48:09.122 * Ready to accept connections tcp
+1:M 05 May 2025 10:48:10.092 * 1 changes in 3600 seconds. Saving...
+1:M 05 May 2025 10:48:10.095 * Background saving started by pid 20
+20:C 05 May 2025 10:48:10.099 * DB saved on disk
+20:C 05 May 2025 10:48:10.100 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB
+1:M 05 May 2025 10:48:10.197 * Background saving terminated with success
