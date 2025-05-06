@@ -2,6 +2,8 @@ from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 import uvicorn
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
 from together import Together
 import redis
 import json
@@ -12,6 +14,8 @@ from typing import Optional
 from jose import JWTError, jwt
 from models import User, UserLogin
 from auth import get_current_user
+from models import Question, Answer
+from models import Base
 
 # Настройка логирования
 logging.basicConfig(
@@ -21,6 +25,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Настройки базы данных
+DATABASE_URL = "postgresql+asyncpg://admin:admin@postgres:5432/personal_cabinet"
 
 # Настройки JWT
 SECRET_KEY = "your-secret-key"  # В реальном приложении использовать безопасный ключ
@@ -41,6 +47,12 @@ app.add_middleware(
 
 # Подключение к Redis
 redis_client = redis.Redis(host='redis', port=6379, db=0)
+
+# Подключение к базе данных
+engine = create_async_engine(DATABASE_URL)
+async_session = sessionmaker(
+    engine, expire_on_commit=False, class_=AsyncSession
+)
 
 # Настройка OAuth2
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -90,7 +102,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 #Инициализируем тестовых пользователей при запуске приложения
 @app.on_event("startup")
-async def startup_event():
+async def startup():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     logger.info("Инициализация тестовых пользователей")
     init_test_users()
     logger.info("Инициализация завершена")
@@ -122,6 +136,7 @@ async def login(user_data: UserLogin):
     access_token = create_access_token(data={"sub": user_data.username})
     logger.info(f"Успешный вход пользователя: {user_data.username}")
     return {"access_token": access_token, "token_type": "bearer"}
+
 
 @app.get("/api/profile")
 async def get_profile(current_user: User = Depends(get_current_user)):
@@ -164,6 +179,34 @@ app.include_router(router)
 async def health_check():
     logger.info("Проверка работоспособности API")
     return {"status": "ok"}
+
+# Настройки SSL
+ssl_keyfile = "/etc/ssl/nginx.key"
+ssl_certfile = "/etc/ssl/nginx.crt"
+
+@app.post("/api/questions")
+async def create_question(question: dict):
+    async with async_session() as session:
+        new_question = Question(
+            question_text=question["text"],
+            created_at=datetime.now()
+        )
+        session.add(new_question)
+        await session.commit()
+        return {"status": "success", "question_id": new_question.id}
+
+@app.get("/api/questions/{question_id}")
+async def get_question(question_id: int):
+    async with async_session() as session:
+        question = await session.get(Question, question_id)
+        if question is None:
+            logger.error(f"Вопрос с id {question_id} не найден")
+            raise HTTPException(status_code=404, detail="Вопрос не найден")
+        try:
+            return {"question": question.question_text}
+        except Exception as e:
+            logger.error(f"Ошибка при доступе к полю question_text: {e}")
+            raise HTTPException(status_code=500, detail="Ошибка сервера")
 
 # Настройки SSL
 ssl_keyfile = "/etc/ssl/nginx.key"

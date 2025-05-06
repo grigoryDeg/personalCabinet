@@ -1,20 +1,11 @@
-2025-05-05 09:48:09,518 - uvicorn.error - INFO - Will watch for changes in these directories: ['/app']
-2025-05-05 09:48:09,518 - uvicorn.error - INFO - Uvicorn running on https://0.0.0.0:8000 (Press CTRL+C to quit)
-2025-05-05 09:48:09,519 - uvicorn.error - INFO - Started reloader process [1] using statreload
-2025-05-05 09:48:09,822 - uvicorn.error - INFO - Started server process [9]
-2025-05-05 09:48:09,822 - uvicorn.error - INFO - Waiting for application startup.
-2025-05-05 09:48:09,822 - main - INFO - Инициализация тестовых пользователей
-2025-05-05 09:48:09,823 - main - INFO - Создан тестовый пользователь: grigory
-2025-05-05 09:48:09,823 - main - INFO - Создан тестовый пользователь: user1
-2025-05-05 09:48:09,823 - main - INFO - Создан тестовый пользователь: user2
-2025-05-05 09:48:09,823 - main - INFO - Инициализация завершена
-2025-05-05 09:48:09,823 - uvicorn.error - INFO - Application startup complete.
-2025-05-05 09:48:23,197 - main - INFO - Попытка входа пользователя: grigory
-2025-05-05 09:48:23,201 - main - INFO - Успешный вход пользователя: grigory
-2025-05-05 09:48:23,278 - main - INFO - Успешная аутентификация пользователя: grigory
-2025-05-05 09:48:23,279 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-05 09:48:24,608 - main - INFO - Успешная аутентификация пользователя: grigory
-2025-05-05 09:48:24,608 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-05 09:48:29,094 - main - INFO - Успешная аутентификация пользователя: grigory
-2025-05-05 09:48:29,095 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-05 09:48:35,035 - main - INFO - Успешная аутентификация пользователя: grigory
+2025-05-06 07:58:38,371 - uvicorn.error - INFO - Will watch for changes in these directories: ['/app']
+2025-05-06 07:58:38,372 - uvicorn.error - INFO - Uvicorn running on https://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-05-06 07:58:38,372 - uvicorn.error - INFO - Started reloader process [1] using statreload
+2025-05-06 07:58:38,813 - uvicorn.error - INFO - Started server process [9]
+2025-05-06 07:58:38,814 - uvicorn.error - INFO - Waiting for application startup.
+2025-05-06 07:58:38,835 - main - INFO - Инициализация тестовых пользователей
+2025-05-06 07:58:38,836 - main - INFO - Создан тестовый пользователь: grigory
+2025-05-06 07:58:38,836 - main - INFO - Создан тестовый пользователь: user1
+2025-05-06 07:58:38,836 - main - INFO - Создан тестовый пользователь: user2
+2025-05-06 07:58:38,836 - main - INFO - Инициализация завершена
+2025-05-06 07:58:38,836 - uvicorn.error - INFO - Application startup complete.

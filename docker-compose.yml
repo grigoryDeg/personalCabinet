@@ -1,22 +1,51 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: personal_cabinet
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d personal_cabinet"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     depends_on:
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: personal_cabinet
+      TOGETHER_API_KEY: ${TOGETHER_API_KEY}
     logging:
       driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
+    networks:
+      - backend
     volumes:
       - ./logs/backend:/var/log/backend
       - ./ssl:/etc/ssl
-    environment:
-      - TOGETHER_API_KEY=${TOGETHER_API_KEY}
 
   frontend:
     build: ./frontend
@@ -28,7 +57,9 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./logs/frontend:/var/log/nginx
-      - ./ssl:/etc/nginx/ssl  # Изменен путь монтирования
+      - ./ssl:/etc/nginx/ssl
+    networks:
+      - backend
     logging:
       driver: "json-file"
       options:
@@ -42,3 +73,12 @@ services:
     volumes:
       - ./logs/redis:/var/log/redis
     command: redis-server --logfile /var/log/redis/redis.log
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
+    driver: bridge
