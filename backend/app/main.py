@@ -12,9 +12,10 @@ from typing import Optional
 from jose import JWTError, jwt
 from models import User, UserLogin
 from auth import get_current_user, create_access_token  # Добавляем импорт create_access_token
-from models import Question, Answer
+from models import Question, Answer, UserQuestionHistory  # Изменяем импорт здесь
 from models import Base
-from sqlalchemy import select
+from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 
 # Настройка логирования
 logging.basicConfig(
@@ -226,6 +227,83 @@ async def get_questions(current_user: User = Depends(get_current_user)):
         except Exception as e:
             logger.error(f"Ошибка при получении списка вопросов: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
+
+@app.get("/api/unknownQuestion")
+async def get_unknown_question(current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        try:
+            # Получаем ID всех вопросов, которые пользователь уже видел
+            seen_questions = select(UserQuestionHistory.question_id).where(
+                UserQuestionHistory.user_id == current_user.id
+            )
+            
+            # Получаем случайный вопрос, который пользователь еще не видел
+            query = select(Question).where(
+                ~Question.id.in_(seen_questions)
+            ).order_by(func.random()).limit(1)
+            
+            result = await session.execute(query)
+            question = result.scalar_one_or_none()
+            
+            if question is None:
+                # Если все вопросы просмотрены, возвращаем случайный вопрос с флагом
+                query = select(Question).order_by(func.random()).limit(1)
+                result = await session.execute(query)
+                question = result.scalar_one()
+                return {
+                    "id": question.id,
+                    "question_text": question.question_text,
+                    "all_questions_seen": True
+                }
+            
+            return {
+                "id": question.id,
+                "question_text": question.question_text,
+                "all_questions_seen": False
+            }
+            
+        except Exception as e:
+            logger.error(f"Ошибка при получении случайного вопроса: {str(e)}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Ошибка при получении вопроса"
+            )
+
+@app.post("/api/rememberQuestion")
+async def remember_question(
+    question_data: dict,
+    current_user: User = Depends(get_current_user)
+):
+    async with async_session() as session:
+        try:
+            # Проверяем существование вопроса
+            question = await session.get(Question, question_data["question_id"])
+            if not question:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Вопрос не найден"
+                )
+            
+            # Создаем запись в истории просмотров
+            history_entry = UserQuestionHistory(
+                user_id=current_user.id,
+                question_id=question_data["question_id"]
+            )
+            
+            session.add(history_entry)
+            await session.commit()
+            
+            return {"status": "success"}
+            
+        except IntegrityError:
+            # Если запись уже существует, просто возвращаем успех
+            return {"status": "success"}
+        except Exception as e:
+            logger.error(f"Ошибка при сохранении истории просмотра: {str(e)}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Ошибка при сохранении истории"
+            )
 
 # Настройки SSL
 ssl_keyfile = "/etc/ssl/nginx.key"
