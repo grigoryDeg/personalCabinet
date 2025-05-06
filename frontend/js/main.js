@@ -1,32 +1,3 @@
-async function login(event) {
-    event.preventDefault();
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    try {
-        const response = await fetch('https://' + window.location.host + '/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка авторизации');
-        }
-        
-        const data = await response.json();
-        localStorage.setItem('token', data.access_token);
-        
-        // Перенаправляем на страницу дашборда
-        window.location.href = '/dashboard.html';
-    } catch (error) {
-        alert('Ошибка: ' + error.message);
-    }
-}
-
 async function loadProfile() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -68,16 +39,17 @@ window.onload = function() {
     const token = localStorage.getItem('token');
     const isDashboard = window.location.pathname.includes('dashboard.html');
     const isQuestion = window.location.pathname.includes('question.html');
+    const isQuestionList = window.location.pathname.includes('question_list.html');
     
     if (!token) {
-        if (isDashboard || isQuestion) {
+        if (isDashboard || isQuestion || isQuestionList) {
             window.location.href = '/';
         }
         return;
     }
     
     // Загружаем профиль для всех авторизованных страниц
-    if (isDashboard || isQuestion) {
+    if (isDashboard || isQuestion || isQuestionList) {
         loadProfile();
     }
 };
@@ -148,5 +120,5 @@ function navigateToQuestionPage(event) {
 
 function navigateToQuestionsPage(event) {
     event.preventDefault();
-    window.location.href = '/questions.html';
+    window.location.href = '/question_list.html';
 }

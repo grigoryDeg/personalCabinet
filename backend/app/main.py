@@ -211,26 +211,39 @@ async def get_question(question_id: int):
 @app.get("/api/questions")
 async def get_questions(current_user: User = Depends(get_current_user)):
     async with async_session() as session:
-        result = await session.execute(
-            "SELECT q.id, q.question_text, q.created_at, COUNT(a.id) as answers_count "
-            "FROM questions q "
-            "LEFT JOIN answers a ON q.id = a.question_id "
-            "GROUP BY q.id "
-            "ORDER BY q.created_at DESC"
-        )
-        questions = result.fetchall()
-        
-        # Преобразуем результаты в список словарей
-        questions_list = []
-        for q in questions:
-            questions_list.append({
-                "id": q.id,
-                "question_text": q.question_text,
-                "created_at": q.created_at.isoformat(),
-                "answers_count": q.answers_count
-            })
-        
-        return questions_list
+        try:
+            # Импортируем text из sqlalchemy
+            from sqlalchemy import text
+            
+            # Используем функцию text() для явного указания текстового SQL
+            sql = text(
+                "SELECT q.id, q.question_text, q.created_at, COUNT(a.id) as answers_count "
+                "FROM questions q "
+                "LEFT JOIN answers a ON q.id = a.question_id "
+                "GROUP BY q.id, q.question_text, q.created_at "
+                "ORDER BY q.created_at DESC"
+            )
+            
+            # Выполняем запрос с явным указанием текстового SQL
+            result = await session.execute(sql)
+            
+            # Получаем все строки результата
+            rows = result.all()
+            
+            # Преобразуем результаты в список словарей
+            questions_list = []
+            for row in rows:
+                questions_list.append({
+                    "id": row.id,
+                    "question_text": row.question_text,
+                    "created_at": row.created_at.isoformat(),
+                    "answers_count": row.answers_count
+                })
+            
+            return questions_list
+        except Exception as e:
+            logger.error(f"Ошибка при получении списка вопросов: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
 
 # Настройки SSL
 ssl_keyfile = "/etc/ssl/nginx.key"
