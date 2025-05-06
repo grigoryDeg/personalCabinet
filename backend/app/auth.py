@@ -4,6 +4,7 @@ from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from models import User
+from sqlalchemy import select
 
 # Настройки JWT
 SECRET_KEY = "your-secret-key"  # В реальном приложении использовать безопасный ключ
@@ -33,9 +34,23 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
+            
+        # Получаем сессию из глобальной async_session
+        from main import async_session
+        
+        async with async_session() as session:
+            query = select(User).where(User.user_name == username)
+            result = await session.execute(query)
+            user = result.scalar_one_or_none()
+            
+            if user is None:
+                raise credentials_exception
+                
+            return User(
+                id=user.id,
+                user_name=user.user_name,
+                user_password=user.user_password
+            )
+            
     except JWTError:
         raise credentials_exception
-    
-    # В реальном приложении здесь должна быть проверка пользователя в базе данных
-    user = User(username=username)
-    return user

@@ -5,17 +5,16 @@ import uvicorn
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from together import Together
-import redis
-import json
 import logging
 import os
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
 from models import User, UserLogin
-from auth import get_current_user
+from auth import get_current_user, create_access_token  # Добавляем импорт create_access_token
 from models import Question, Answer
 from models import Base
+from sqlalchemy import select
 
 # Настройка логирования
 logging.basicConfig(
@@ -45,8 +44,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Подключение к Redis
-redis_client = redis.Redis(host='redis', port=6379, db=0)
+# Удаляем подключение к Redis
+# redis_client = redis.Redis(host='redis', port=6379, db=0)
 
 # Подключение к базе данных
 engine = create_async_engine(DATABASE_URL)
@@ -58,97 +57,80 @@ async_session = sessionmaker(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Функция для инициализации тестовых пользователей
-def init_test_users():
+async def init_test_users():
     default_users = [
         {"username": "grigory", "password": "mypass1"},
         {"username": "user1", "password": "password11"},
         {"username": "user2", "password": "password22"}
     ]
     
-    for user in default_users:
-        user_key = f"user:{user['username']}"
-        if not redis_client.exists(user_key):
-            redis_client.set(user_key, json.dumps(user))
-            logger.info(f"Создан тестовый пользователь: {user['username']}")
+    async with async_session() as session:
+        for user_data in default_users:
+            # Проверяем существование пользователя
+            query = select(User).where(User.user_name == user_data["username"])
+            result = await session.execute(query)
+            existing_user = result.scalar_one_or_none()
             
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
-
-async def get_current_user(token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Неверные учетные данные",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
-            raise credentials_exception
-    except JWTError:
-        logger.error(f"Ошибка при проверке JWT токена")
-        raise credentials_exception
-    
-    logger.info(f"Успешная аутентификация пользователя: {username}")
-    user = User(username=username)
-    return user
-
-#Инициализируем тестовых пользователей при запуске приложения
-@app.on_event("startup")
-async def startup():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    logger.info("Инициализация тестовых пользователей")
-    init_test_users()
-    logger.info("Инициализация завершена")
+            if not existing_user:
+                new_user = User(
+                    user_name=user_data["username"],
+                    user_password=user_data["password"]  # В реальном приложении нужно хешировать
+                )
+                session.add(new_user)
+                logger.info(f"Создан тестовый пользователь: {user_data['username']}")
+        
+        await session.commit()
 
 @app.post("/api/login")
 async def login(user_data: UserLogin):
-    logger.info(f"Попытка входа пользователя: {user_data.username}")
-    # Получаем данные пользователя из Redis
-    stored_user = redis_client.get(f"user:{user_data.username}")
-    if not stored_user:
-        logger.warning(f"Неудачная попытка входа: пользователь {user_data.username} не найден")
+    try:
+        logger.info(f"Попытка входа пользователя: {user_data.username}")
+        
+        async with async_session() as session:
+            query = select(User).where(User.user_name == user_data.username)
+            result = await session.execute(query)
+            user = result.scalar_one_or_none()
+            
+            if not user:
+                logger.warning(f"Неудачная попытка входа: пользователь {user_data.username} не найден")
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Неверные учетные данные"
+                )
+            
+            if user.user_password != user_data.password:
+                logger.warning(f"Неудачная попытка входа: неверный пароль для пользователя {user_data.username}")
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Неверные учетные данные"
+                )
+            
+            try:
+                access_token = create_access_token(data={"sub": user_data.username})
+                logger.info(f"Успешный вход пользователя: {user_data.username}")
+                return {"access_token": access_token, "token_type": "bearer"}
+            except Exception as token_error:
+                logger.error(f"Ошибка создания токена: {str(token_error)}")
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail="Ошибка создания токена доступа"
+                )
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        logger.error(f"Ошибка при входе пользователя {user_data.username}: {str(e)}")
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Неверные учетные данные"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Внутренняя ошибка сервера"
         )
-    
-    # Преобразуем bytes в словарь
-    user_info = json.loads(stored_user)
-    
-    # Проверяем пароль (в реальном приложении нужно использовать хеширование)
-    if user_info.get('password') != user_data.password:
-        logger.warning(f"Неудачная попытка входа: неверный пароль для пользователя {user_data.username}")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Неверные учетные данные"
-        )
-    
-    # Создаем токен доступа
-    access_token = create_access_token(data={"sub": user_data.username})
-    logger.info(f"Успешный вход пользователя: {user_data.username}")
-    return {"access_token": access_token, "token_type": "bearer"}
-
 
 @app.get("/api/profile")
 async def get_profile(current_user: User = Depends(get_current_user)):
-    logger.info(f"Запрос профиля пользователя: {current_user.username}")
-    # Получаем дополнительные данные пользователя из Redis
-    user_data = redis_client.get(f"user:{current_user.username}")
-    if user_data:
-        user_info = json.loads(user_data)
-        # Удаляем пароль из данных перед отправкой клиенту
-        user_info.pop('password', None)
-        return user_info
-    return current_user
+    logger.info(f"Запрос профиля пользователя: {current_user.user_name}")
+    return {
+        "username": current_user.user_name,
+        "id": current_user.id
+    }
 
 # Добавляем эндпоинт для API Together
 @router.post("/api/chat")
