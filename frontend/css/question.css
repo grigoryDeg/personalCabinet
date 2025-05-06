@@ -23,7 +23,20 @@
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    position: relative;
+    transition: all 0.5s ease-out;
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.question-card.fade-out {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.question-card.fade-in {
+    transform: translateX(0);
+    opacity: 1;
 }
 
 .question-card:hover {

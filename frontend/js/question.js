@@ -7,6 +7,21 @@ async function loadUnknownQuestion() {
     }
     
     try {
+        // Отключаем взаимодействие на время анимации
+        const questionCard = document.querySelector('.question-card');
+        questionCard.style.pointerEvents = 'none';
+        
+        // Начальное состояние для анимации исчезновения
+        questionCard.style.transform = 'translateX(0)';
+        questionCard.style.opacity = '1';
+        
+        // Анимация исчезновения
+        questionCard.style.transform = 'translateX(-100%)';
+        questionCard.style.opacity = '0';
+        
+        // Ждем завершения анимации исчезновения
+        await new Promise(resolve => setTimeout(resolve, 500));
+
         const response = await fetch('/api/unknownQuestion', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -54,15 +69,30 @@ async function loadUnknownQuestion() {
             });
         } */
         
-        // Обновляем номер вопроса
+            // Обновляем содержимое карточки
         document.querySelector('h2').textContent = `Вопрос №${question.id}`;
-        
-        // Обновляем текст вопроса
         document.querySelector('.question-text p').textContent = question.question_text;
+        document.querySelector('#userAnswer').value = ''; // Очищаем поле ввода
+        
+        // Убираем класс fade-out и добавляем fade-in
+        questionCard.classList.remove('fade-out');
+        
+        // Небольшая задержка перед анимацией появления
+        await new Promise(resolve => setTimeout(resolve, 50));
+        
+        // Возвращаем карточку в исходное положение
+        questionCard.style.transform = 'translateX(0)';
+        questionCard.style.opacity = '1';
+        questionCard.classList.add('fade-in');
+        
+        // Восстанавливаем взаимодействие после завершения анимации
+        setTimeout(() => {
+            questionCard.style.pointerEvents = 'auto';
+            questionCard.classList.remove('fade-in');
+        }, 500);
         
         // Сохраняем вопрос в истории просмотров
         await rememberQuestion(question.id);
-        
     } catch (error) {
         console.error('Ошибка:', error);
         document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
