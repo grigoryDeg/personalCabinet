@@ -1,8 +1,13 @@
-1:C 06 May 2025 07:58:32.338 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
-1:C 06 May 2025 07:58:32.339 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-1:C 06 May 2025 07:58:32.340 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
-1:C 06 May 2025 07:58:32.341 * Configuration loaded
-1:M 06 May 2025 07:58:32.341 * monotonic clock: POSIX clock_gettime
-1:M 06 May 2025 07:58:32.342 * Running mode=standalone, port=6379.
-1:M 06 May 2025 07:58:32.343 * Server initialized
-1:M 06 May 2025 07:58:32.343 * Ready to accept connections tcp
+1:signal-handler (1746520079) Received SIGTERM scheduling shutdown...
+1:M 06 May 2025 08:27:59.686 * User requested shutdown...
+1:M 06 May 2025 08:27:59.687 * Saving the final RDB snapshot before exiting.
+1:M 06 May 2025 08:27:59.694 * DB saved on disk
+1:M 06 May 2025 08:27:59.696 # Redis is now ready to exit, bye bye...
+1:C 06 May 2025 08:28:03.900 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 06 May 2025 08:28:03.901 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 06 May 2025 08:28:03.901 * Redis version=7.4.3, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 06 May 2025 08:28:03.902 * Configuration loaded
+1:M 06 May 2025 08:28:03.902 * monotonic clock: POSIX clock_gettime
+1:M 06 May 2025 08:28:03.903 * Running mode=standalone, port=6379.
+1:M 06 May 2025 08:28:03.904 * Server initialized
+1:M 06 May 2025 08:28:03.904 * Ready to accept connections tcp

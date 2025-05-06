@@ -208,6 +208,30 @@ async def get_question(question_id: int):
             logger.error(f"Ошибка при доступе к полю question_text: {e}")
             raise HTTPException(status_code=500, detail="Ошибка сервера")
 
+@app.get("/api/questions")
+async def get_questions(current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        result = await session.execute(
+            "SELECT q.id, q.question_text, q.created_at, COUNT(a.id) as answers_count "
+            "FROM questions q "
+            "LEFT JOIN answers a ON q.id = a.question_id "
+            "GROUP BY q.id "
+            "ORDER BY q.created_at DESC"
+        )
+        questions = result.fetchall()
+        
+        # Преобразуем результаты в список словарей
+        questions_list = []
+        for q in questions:
+            questions_list.append({
+                "id": q.id,
+                "question_text": q.question_text,
+                "created_at": q.created_at.isoformat(),
+                "answers_count": q.answers_count
+            })
+        
+        return questions_list
+
 # Настройки SSL
 ssl_keyfile = "/etc/ssl/nginx.key"
 ssl_certfile = "/etc/ssl/nginx.crt"

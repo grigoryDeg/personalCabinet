@@ -145,3 +145,8 @@ function navigateToQuestionPage(event) {
     event.preventDefault();
     window.location.href = '/question.html';
 }
+
+function navigateToQuestionsPage(event) {
+    event.preventDefault();
+    window.location.href = '/questions.html';
+}
