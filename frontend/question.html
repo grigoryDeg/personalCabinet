@@ -47,9 +47,18 @@
 
         <div class="question-content">
             <div class="question-card">
+                <div class="bookmark-back" onclick="navigateToQuestionsPage(event)">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="solved-badge" id="solvedBadge" style="display: none;">
+                    <i class="fas fa-check-circle"></i> Решено
+                </div>
                 <div class="question-text">
                     <h3>Текст вопроса:</h3>
                     <p>Здесь будет отображаться текст вопроса из базы данных или сгенерированный ИИ.</p>
+                    <div id="questionImage" class="question-image" style="display: none;">
+                        <img src="" alt="Изображение к вопросу" class="question-media">
+                    </div>
                 </div>
                 <div class="answer-form">
                     <h3>Ваш ответ:</h3>
@@ -59,7 +68,7 @@
                             <i class="fas fa-paper-plane me-2"></i>
                             Отправить ответ
                         </button>
-                        <button class="submit-btn" onclick="loadUnknownQuestion()">
+                        <button class="submit-btn" onclick="loadNextQuestion()">
                             <i class="fas fa-arrow-right me-2"></i>
                             Следующий вопрос
                         </button>

@@ -1,7 +1,4 @@
-// Загрузка списка вопросов при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    loadQuestions();
-});
+let currentQuestions = [];
 
 // Функция для загрузки списка вопросов
 async function loadQuestions() {
@@ -23,7 +20,8 @@ async function loadQuestions() {
         }
         
         const questions = await response.json();
-        displayQuestions(questions);
+        currentQuestions = questions; // Сохраняем вопросы в глобальную переменную
+        applyFiltersAndSort(); // Применяем фильтры и сортировку
     } catch (error) {
         console.error('Ошибка:', error);
         document.getElementById('questions-list').innerHTML = `
@@ -34,6 +32,60 @@ async function loadQuestions() {
         `;
     }
 }
+
+// Функция применения фильтров и сортировки
+function applyFiltersAndSort() {
+    let filteredQuestions = [...currentQuestions];
+    
+    // Применяем поиск по тексту
+    const searchText = document.getElementById('searchInput').value.toLowerCase();
+    if (searchText) {
+        filteredQuestions = filteredQuestions.filter(q => 
+            q.question_text.toLowerCase().includes(searchText)
+        );
+    }
+    
+    // Применяем фильтр по статусу
+    const statusFilter = document.getElementById('statusFilter').value;
+    if (statusFilter !== 'all') {
+        filteredQuestions = filteredQuestions.filter(q => 
+            statusFilter === 'solved' ? q.is_solved : !q.is_solved
+        );
+    }
+    
+    // Применяем сортировку
+    const sortType = document.getElementById('sortSelect').value;
+    filteredQuestions.sort((a, b) => {
+        switch (sortType) {
+            case 'id':
+                return a.id - b.id;
+            case 'newest':
+                return new Date(b.created_at) - new Date(a.created_at);
+            case 'oldest':
+                return new Date(a.created_at) - new Date(b.created_at);
+            case 'answers':
+                return (b.answers_count || 0) - (a.answers_count || 0);
+            default:
+                return a.id - b.id; // По умолчанию сортируем по ID
+        }
+    });
+    
+    displayQuestions(filteredQuestions);
+}
+
+// Добавляем обработчики событий для фильтров
+document.addEventListener('DOMContentLoaded', function() {
+    // Устанавливаем значение сортировки по умолчанию
+    const sortSelect = document.getElementById('sortSelect');
+    sortSelect.value = 'id';
+    
+    loadQuestions();
+    
+    // Обработчики изменений в фильтрах
+    document.getElementById('searchInput').addEventListener('input', applyFiltersAndSort);
+    document.getElementById('sortSelect').addEventListener('change', applyFiltersAndSort);
+    document.getElementById('statusFilter').addEventListener('change', applyFiltersAndSort);
+});
 
 // Функция для отображения списка вопросов
 function displayQuestions(questions) {
@@ -59,9 +111,15 @@ function displayQuestions(questions) {
             year: 'numeric'
         });
         
+        // Преобразуем строковое значение в булево
+        const isSolved = question.is_solved === 'true' || question.is_solved === true;
+        
         html += `
             <div class="question-item" onclick="navigateToQuestion(${question.id})">
-                <h4>Вопрос #${question.id}</h4>
+                <div class="d-flex justify-content-between align-items-start">
+                    <h4>Вопрос #${question.id}</h4>
+                    ${isSolved ? '<span class="solved-indicator"><i class="fas fa-check-circle"></i></span>' : ''}
+                </div>
                 <p>${truncateText(question.question_text, 150)}</p>
                 <div class="meta">
                     <span><i class="far fa-calendar-alt me-1"></i> ${formattedDate}</span>
@@ -81,8 +139,51 @@ function truncateText(text, maxLength) {
 }
 
 // Функция для перехода на страницу вопроса
-function navigateToQuestion(questionId) {
-    window.location.href = `/question.html?id=${questionId}`;
+async function navigateToQuestion(questionId) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = '/';
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/questions/${questionId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки вопроса');
+        }
+
+        // Сохраняем данные вопроса в localStorage для передачи на следующую страницу
+        const question = await response.json();
+        localStorage.setItem('currentQuestion', JSON.stringify(question));
+        
+        // Переходим на страницу вопроса
+        window.location.href = '/question.html';
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.');
+    }
+}
+
+function displayQuestionDetails(question) {
+    const questionsListElement = document.getElementById('questions-list');
+    questionsListElement.innerHTML = `
+        <div class="question-details">
+            <h3>Вопрос #${question.id}</h3>
+            <div class="question-content">
+                <p>${question.question}</p>
+            </div>
+            ${question.is_solved ? '<div class="solved-badge"><i class="fas fa-check-circle"></i> Решено</div>' : ''}
+            <button class="submit-btn mt-3" onclick="loadQuestions()">
+                <i class="fas fa-arrow-left me-2"></i>
+                Вернуться к списку
+            </button>
+        </div>
+    `;
 }
 
 // Функция для отображения модального окна добавления вопроса

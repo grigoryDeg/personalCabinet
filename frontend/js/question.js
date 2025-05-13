@@ -1,5 +1,5 @@
-// Функция для получения случайного вопроса, который пользователь еще не видел
-async function loadUnknownQuestion() {
+// Функция для получения следующего вопроса
+async function loadNextQuestion() {
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = '/';
@@ -22,7 +22,7 @@ async function loadUnknownQuestion() {
         // Ждем завершения анимации исчезновения
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        const response = await fetch('/api/unknownQuestion', {
+        const response = await fetch('/api/question', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -33,46 +33,30 @@ async function loadUnknownQuestion() {
         }
         
         const question = await response.json();
-        
-        // Проверяем, есть ли у вопроса флаг all_questions_seen
-        /*
-        if (question.all_questions_seen) {
-            // Создаем модальное окно
-            const modalHtml = `
-                <div class="modal fade" id="congratsModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Поздравляем!</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Молодец, ты решил все задачи!</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Закрыть</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-            
-            // Добавляем модальное окно в DOM
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-            
-            // Показываем модальное окно
-            const modal = new bootstrap.Modal(document.getElementById('congratsModal'));
-            modal.show();
-            
-            // Удаляем модальное окно после закрытия
-            document.getElementById('congratsModal').addEventListener('hidden.bs.modal', function () {
-                this.remove();
-            });
-        } */
-        
-            // Обновляем содержимое карточки
+        const solvedBadge = document.getElementById('solvedBadge');
+
+        if (question.is_solved) {
+            solvedBadge.style.display = 'flex';
+        } else {
+            solvedBadge.style.display = 'none';
+        }
+
+        // Обновляем содержимое карточки
         document.querySelector('h2').textContent = `Вопрос №${question.id}`;
         document.querySelector('.question-text p').textContent = question.question_text;
         document.querySelector('#userAnswer').value = ''; // Очищаем поле ввода
+
+        // Обрабатываем изображение, если оно есть
+        const questionImage = document.getElementById('questionImage');
+        const imageElement = questionImage.querySelector('img');
+
+        if (question.is_there_media && question.media_url) {
+            imageElement.src = question.media_url;
+            questionImage.style.display = 'block';
+        } else {
+            questionImage.style.display = 'none';
+            imageElement.src = '';
+        }
         
         // Убираем класс fade-out и добавляем fade-in
         questionCard.classList.remove('fade-out');
@@ -96,6 +80,11 @@ async function loadUnknownQuestion() {
     } catch (error) {
         console.error('Ошибка:', error);
         document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
+        // Восстанавливаем взаимодействие в случае ошибки
+        const questionCard = document.querySelector('.question-card');
+        if (questionCard) {
+            questionCard.style.pointerEvents = 'auto';
+        }
     }
 }
 
@@ -125,7 +114,81 @@ async function rememberQuestion(questionId) {
     }
 }
 
+// Функция для загрузки конкретного вопроса по ID
+async function loadQuestionById(questionId) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = '/';
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/questions/${questionId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки вопроса');
+        }
+        
+        const question = await response.json();
+        displayQuestion(question);
+        
+        // Сохраняем вопрос в истории просмотров
+        await rememberQuestion(question.id);
+    } catch (error) {
+        console.error('Ошибка:', error);
+        document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
+    }
+}
+
 // Загружаем вопрос при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    loadUnknownQuestion();
+    const savedQuestion = localStorage.getItem('currentQuestion');
+    if (savedQuestion) {
+        const question = JSON.parse(savedQuestion);
+        displayQuestion(question);
+        // Очищаем сохраненный вопрос после отображения
+        localStorage.removeItem('currentQuestion');
+    } else {
+        loadNextQuestion();
+    }
+
+    // Загружаем имя пользователя
+    loadUsername();
 });
+
+function displayQuestion(question) {
+    const questionCard = document.querySelector('.question-card');
+    const solvedBadge = document.getElementById('solvedBadge');
+
+    // Обновляем заголовок
+    document.querySelector('h2').textContent = `Вопрос №${question.id}`;
+    
+    // Обновляем текст вопроса
+    document.querySelector('.question-text p').textContent = question.question_text;
+    
+    // Обновляем статус решения
+    if (question.is_solved) {
+        solvedBadge.style.display = 'flex';
+    } else {
+        solvedBadge.style.display = 'none';
+    }
+
+    // Обрабатываем изображение, если оно есть
+    const questionImage = document.getElementById('questionImage');
+    const imageElement = questionImage.querySelector('img');
+
+    if (question.is_there_media && question.media_url) {
+        imageElement.src = question.media_url;
+        questionImage.style.display = 'block';
+    } else {
+        questionImage.style.display = 'none';
+        imageElement.src = '';
+    }
+
+    // Очищаем поле ввода ответа
+    document.querySelector('#userAnswer').value = '';
+}

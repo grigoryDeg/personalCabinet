@@ -48,11 +48,36 @@
         <div class="question-content">
             <div class="question-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Список вопросов в базе данных</h3>
+                    <h3>Задания из базы данных</h3>
                     <button class="submit-btn" onclick="showAddQuestionModal()">
                         <i class="fas fa-plus me-2"></i>
                         Добавить вопрос
                     </button>
+                </div>
+                <!-- Добавляем панель фильтрации -->
+                <div class="filter-panel mb-4">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Поиск по тексту...">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="sortSelect">
+                                <option value="id">По номеру вопроса</option>
+                                <option value="newest">Сначала новые</option>
+                                <option value="oldest">Сначала старые</option>
+                                <option value="answers">По количеству ответов</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select" id="statusFilter">
+                                <option value="all">Все вопросы</option>
+                                <option value="solved">Решенные</option>
+                                <option value="unsolved">Нерешенные</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div id="questions-list" class="questions-list">
                     <!-- Здесь будет список вопросов -->

@@ -18,6 +18,26 @@
     margin: 30px 0;
 }
 
+.solved-badge {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: #28a745;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.solved-badge i {
+    font-size: 16px;
+}
+
 .question-card {
     background: linear-gradient(145deg, #ffffff, #f5f7fa);
     border-radius: 15px;
@@ -25,7 +45,6 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     position: relative;
     transition: all 0.5s ease-out;
-    transform: translateX(0);
     opacity: 1;
 }
 
@@ -40,7 +59,6 @@
 }
 
 .question-card:hover {
-    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(118, 75, 162, 0.15);
 }
 
@@ -209,4 +227,166 @@
     text-align: center;
     padding: 30px;
     color: #718096;
+}
+
+
+.question-image {
+    margin: 20px auto;  /* изменено: добавлен auto по горизонтали */
+    max-height: 300px;
+    width: 100%;        /* добавлено: полная ширина контейнера */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.question-media {
+    max-width: 80%;     /* изменено: уменьшено с 100% для лучшего визуального баланса */
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: block;     /* добавлено: для лучшего центрирования */
+    margin: 0 auto;     /* добавлено: центрирование по горизонтали */
+}
+
+.question-details {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.question-details h3 {
+    color: #2d3748;
+    margin-bottom: 20px;
+}
+
+.question-details .question-content {
+    margin-bottom: 20px;
+}
+
+.question-details .solved-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #48bb78;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.question-details .solved-badge i {
+    margin-right: 5px;
+}
+
+/* Стили для панели фильтрации */
+.filter-panel {
+    background: linear-gradient(145deg, #f8f9fa, #ffffff);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-panel .input-group-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+.filter-panel .form-control,
+.filter-panel .form-select {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.filter-panel .form-control:focus,
+.filter-panel .form-select:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(145deg, #ffffff, #f5f7fa);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #764ba2;
+    box-shadow: 0 2px 8px rgba(118, 75, 162, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.bookmark-back {
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    width: 32px;
+    height: 42px;
+    background: linear-gradient(145deg, #f5f7fa, #ffffff);
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(118, 75, 162, 0.08);
+    border-bottom: none;
+    box-shadow: 0 -2px 6px rgba(118, 75, 162, 0.05);
+}
+
+.bookmark-back::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 32px;
+    height: 12px;
+    background: inherit;
+    border-left: 1px solid rgba(118, 75, 162, 0.08);
+    border-right: 1px solid rgba(118, 75, 162, 0.08);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bookmark-back i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #764ba2;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bookmark-back:hover {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-color: rgba(118, 75, 162, 0.15);
+    box-shadow: 0 -4px 8px rgba(118, 75, 162, 0.08);
+}
+
+.bookmark-back:hover i {
+    opacity: 0.7;
+}
+
+.solved-indicator {
+    color: #48bb78;
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.solved-indicator i {
+    transition: transform 0.2s ease;
+}
+
+.question-item:hover .solved-indicator i {
+    transform: scale(1.1);
 }
