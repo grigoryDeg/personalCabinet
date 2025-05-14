@@ -214,6 +214,34 @@ async def create_question(question: dict, current_user: User = Depends(get_curre
             detail="Ошибка при создании вопроса"
         )
 
+@app.get("/api/questions/count")
+async def get_questions_count(current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        try:
+            # Получаем общее количество вопросов
+            count_query = select(func.count()).select_from(Question)
+            result = await session.execute(count_query)
+            total_count = result.scalar()
+            
+            # Получаем количество решенных вопросов для текущего пользователя
+            solved_query = select(func.count()).select_from(UserQuestionHistory).where(
+                UserQuestionHistory.user_id == current_user.id
+            )
+            solved_result = await session.execute(solved_query)
+            solved_count = solved_result.scalar()
+            
+            return {
+                "count": total_count,
+                "solved_count": solved_count
+            }
+            
+        except Exception as e:
+            logger.error(f"Ошибка при получении количества вопросов: {str(e)}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Ошибка при получении количества вопросов"
+            )
+            
 @app.get("/api/questions/{question_id}")
 async def get_question_by_id(question_id: int, current_user: User = Depends(get_current_user)):
     async with async_session() as session:
@@ -237,12 +265,24 @@ async def get_question_by_id(question_id: int, current_user: User = Depends(get_
             history_result = await session.execute(history_query)
             history_entry = history_result.scalar_one_or_none()
             
+            # Получаем следующий вопрос по ID
+            next_question_query = select(Question).where(Question.id > question.id).order_by(Question.id.asc()).limit(1)
+            next_question_result = await session.execute(next_question_query)
+            next_question = next_question_result.scalar_one_or_none()
+            
+            # Если следующего вопроса нет, возвращаем первый вопрос
+            if not next_question:
+                first_question_query = select(Question).order_by(Question.id.asc()).limit(1)
+                first_question_result = await session.execute(first_question_query)
+                next_question = first_question_result.scalar_one_or_none()
+            
             return {
                 "id": question.id,
                 "question_text": question.question_text,
                 "is_there_media": question.is_there_media,
                 "media_url": question.media_url if question.is_there_media else None,
-                "is_solved": history_entry is not None
+                "is_solved": history_entry is not None,
+                "next_question_id": next_question.id if next_question else None
             }
             
         except Exception as e:

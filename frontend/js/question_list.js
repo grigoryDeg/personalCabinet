@@ -162,7 +162,7 @@ async function navigateToQuestion(questionId) {
         localStorage.setItem('currentQuestion', JSON.stringify(question));
         
         // Переходим на страницу вопроса
-        window.location.href = '/question.html';
+        window.location.href = `/question.html?id=${question.id}`;
     } catch (error) {
         console.error('Ошибка:', error);
         alert('Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.');

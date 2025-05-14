@@ -7,7 +7,46 @@ async function loadNextQuestion() {
     }
     
     try {
-        // Отключаем взаимодействие на время анимации
+        // Получаем текущий ID вопроса из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentId = parseInt(urlParams.get('id')) || 1;
+        
+        // Сначала сохраняем текущий вопрос в истории просмотров
+        await rememberQuestion(currentId);
+        
+        // Получаем общее количество вопросов
+        const totalQuestionsResponse = await fetch('/api/questions/count', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (!totalQuestionsResponse.ok) {
+            throw new Error('Ошибка получения количества вопросов');
+        }
+        
+        const { count } = await totalQuestionsResponse.json();
+        
+        // Вычисляем ID следующего вопроса с учетом цикличности
+        const nextId = currentId >= count ? 1 : currentId + 1;
+        
+        // Затем загружаем следующий вопрос
+        const response = await fetch(`/api/questions/${nextId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки вопроса');
+        }
+        
+        const question = await response.json();
+        if (!question) {
+            throw new Error('Следующий вопрос не найден');
+        }
+        
+        // Обновляем UI
         const questionCard = document.querySelector('.question-card');
         questionCard.style.pointerEvents = 'none';
         
@@ -22,17 +61,6 @@ async function loadNextQuestion() {
         // Ждем завершения анимации исчезновения
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        const response = await fetch('/api/question', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки вопроса');
-        }
-        
-        const question = await response.json();
         const solvedBadge = document.getElementById('solvedBadge');
 
         if (question.is_solved) {
@@ -75,16 +103,11 @@ async function loadNextQuestion() {
             questionCard.classList.remove('fade-in');
         }, 500);
         
-        // Сохраняем вопрос в истории просмотров
-        await rememberQuestion(question.id);
+        // Обновляем URL с правильным ID следующего вопроса
+        window.history.pushState({}, '', `/question.html?id=${question.id}`);
     } catch (error) {
         console.error('Ошибка:', error);
         document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
-        // Восстанавливаем взаимодействие в случае ошибки
-        const questionCard = document.querySelector('.question-card');
-        if (questionCard) {
-            questionCard.style.pointerEvents = 'auto';
-        }
     }
 }
 
@@ -136,8 +159,6 @@ async function loadQuestionById(questionId) {
         const question = await response.json();
         displayQuestion(question);
         
-        // Сохраняем вопрос в истории просмотров
-        await rememberQuestion(question.id);
     } catch (error) {
         console.error('Ошибка:', error);
         document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
@@ -145,19 +166,33 @@ async function loadQuestionById(questionId) {
 }
 
 // Загружаем вопрос при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    const savedQuestion = localStorage.getItem('currentQuestion');
-    if (savedQuestion) {
-        const question = JSON.parse(savedQuestion);
-        displayQuestion(question);
-        // Очищаем сохраненный вопрос после отображения
-        localStorage.removeItem('currentQuestion');
+document.addEventListener('DOMContentLoaded', async function() {
+    // Получаем ID вопроса из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionId = urlParams.get('id');
+    
+    if (questionId) {
+        // Если есть ID в URL, загружаем вопрос по ID
+        await loadQuestionById(questionId);
     } else {
-        loadNextQuestion();
+        // Если нет ID, пробуем загрузить из localStorage
+        const savedQuestion = localStorage.getItem('currentQuestion');
+        if (savedQuestion) {
+            try {
+                const question = JSON.parse(savedQuestion);
+                displayQuestion(question);
+            } catch (error) {
+                // Если возникла ошибка при парсинге, загружаем первый вопрос
+                loadNextQuestion();
+            }
+        } else {
+            // Если нет данных в localStorage, загружаем первый вопрос
+            loadNextQuestion();
+        }
     }
-
-    // Загружаем имя пользователя
-    loadUsername();
+    
+    // Очищаем localStorage после использования
+    localStorage.removeItem('currentQuestion');
 });
 
 function displayQuestion(question) {
