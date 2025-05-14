@@ -227,3 +227,101 @@ function displayQuestion(question) {
     // Очищаем поле ввода ответа
     document.querySelector('#userAnswer').value = '';
 }
+
+async function submitAnswer() {
+    const userAnswer = document.getElementById('userAnswer').value;
+    if (!userAnswer.trim()) {
+        alert('Пожалуйста, введите ваш ответ');
+        return;
+    }
+    
+    try {
+        // Получаем ID текущего вопроса из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const questionId = urlParams.get('id');
+        
+        // Получаем токен авторизации
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/';
+            return;
+        }
+
+        // Получаем правильный ответ для текущего вопроса
+        const response = await fetch(`/api/answers/${questionId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status === 404) {
+            const errorData = await response.json();
+            // Создаем модальное окно
+            const modalHtml = `
+                <div class="modal" id="noAnswerModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" role="document">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="noAnswerModalLabel">Ответ недоступен</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" title="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>${errorData.detail}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Закрыть окно">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            
+            // Добавляем модальное окно в DOM
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Показываем модальное окно
+            const modal = new bootstrap.Modal(document.getElementById('noAnswerModal'));
+            modal.show();
+            
+            // Удаляем модальное окно после закрытия
+            document.getElementById('noAnswerModal').addEventListener('hidden.bs.modal', function () {
+                this.remove();
+            });
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('Ошибка при получении ответа');
+        }
+
+        const answerData = await response.json();
+        
+        // Отображаем ответ пользователя
+        document.getElementById('userAnswerDisplay').textContent = userAnswer;
+        
+        // Отображаем правильный ответ
+        document.getElementById('correctAnswer').textContent = answerData.answer_text;
+
+        // Если есть медиа-контент в ответе, отображаем его
+        if (answerData.is_there_media && answerData.media_url) {
+            const answerMediaContainer = document.createElement('div');
+            answerMediaContainer.className = 'answer-media-container mt-3';
+            const mediaElement = document.createElement('img');
+            mediaElement.src = answerData.media_url;
+            mediaElement.alt = 'Изображение к ответу';
+            mediaElement.className = 'answer-media';
+            answerMediaContainer.appendChild(mediaElement);
+            document.querySelector('.correct-answer').appendChild(answerMediaContainer);
+        }
+        
+        // Переворачиваем карточку
+        document.querySelector('.question-card').classList.add('flipped');
+        
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при проверке ответа. Пожалуйста, попробуйте позже.');
+    }
+}
+
+function flipCard() {
+    document.querySelector('.question-card').classList.toggle('flipped');
+}

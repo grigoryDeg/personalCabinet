@@ -332,67 +332,6 @@ async def get_questions(current_user: User = Depends(get_current_user)):
             logger.error(f"Ошибка при получении списка вопросов: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
 
-@app.get("/api/question")
-async def get_question(current_user: User = Depends(get_current_user)):
-    async with async_session() as session:
-        try:
-            # Получаем все вопросы, отсортированные по ID
-            all_questions_query = select(Question).order_by(Question.id.asc())
-            all_questions_result = await session.execute(all_questions_query)
-            all_questions = all_questions_result.scalars().all()
-            
-            if not all_questions:
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail="Вопросы не найдены"
-                )
-
-            # Если current_question не установлен, начинаем с первого вопроса
-            if current_user.current_question is None:
-                current_user.current_question = 0
-            
-            # Получаем текущего пользователя для обновления
-            user_query = select(User).where(User.id == current_user.id)
-            user_result = await session.execute(user_query)
-            db_user = user_result.scalar_one_or_none()
-            
-            if not db_user:
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail="Пользователь не найден"
-                )
-            
-            # Просто берем следующий вопрос по порядку
-            next_index = (db_user.current_question + 1) % len(all_questions)
-            next_question = all_questions[next_index]
-            
-            # Обновляем current_question в базе данных
-            db_user.current_question = next_index
-            await session.commit()
-            
-            # Проверяем статус решения вопроса (только для отображения)
-            history_query = select(UserQuestionHistory).where(
-                UserQuestionHistory.user_id == current_user.id,
-                UserQuestionHistory.question_id == next_question.id
-            )
-            history_result = await session.execute(history_query)
-            history_entry = history_result.scalar_one_or_none()
-            
-            return {
-                "id": next_question.id,
-                "question_text": next_question.question_text,
-                "is_there_media": next_question.is_there_media,
-                "media_url": next_question.media_url if next_question.is_there_media else None,
-                "is_solved": history_entry is not None
-            }
-            
-        except Exception as e:
-            logger.error(f"Ошибка при получении вопроса: {str(e)}")
-            raise HTTPException(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=f"Ошибка при получении вопроса: {str(e)}"
-            )
-
 @app.post("/api/rememberQuestion")
 async def remember_question(
     question_data: dict,
@@ -427,6 +366,63 @@ async def remember_question(
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Ошибка при сохранении истории"
+            )
+
+@app.get("/api/answers/{answer_id}")
+async def get_answer_by_id(answer_id: int, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        try:
+            # Получаем ответ по ID вопроса (не ответа)
+            answer_query = select(Answer).where(Answer.question_id == answer_id)
+            answer_result = await session.execute(answer_query)
+            answer = answer_result.scalar_one_or_none()
+            
+            if not answer:
+                # Проверяем существование самого вопроса
+                question_query = select(Question).where(Question.id == answer_id)
+                question_result = await session.execute(question_query)
+                question = question_result.scalar_one_or_none()
+                
+                if not question:
+                    raise HTTPException(
+                        status_code=status.HTTP_404_NOT_FOUND,
+                        detail="Вопрос не найден"
+                    )
+                    
+                # Если вопрос существует, но ответа нет
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Для данного вопроса пока нет ответа"
+                )
+            
+            # Проверяем, имеет ли пользователь доступ к этому ответу
+            question_query = select(Question).where(Question.id == answer.question_id)
+            question_result = await session.execute(question_query)
+            question = question_result.scalar_one_or_none()
+            
+            if not question:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Связанный вопрос не найден"
+                )
+            
+            return {
+                "id": answer.id,
+                "answer_text": answer.answer_text,
+                "is_there_media": answer.is_there_media,
+                "media_url": answer.media_url if answer.is_there_media else None,
+                "created_at": answer.created_at.isoformat(),
+                "question_id": answer.question_id,
+                "user_id": answer.user_id
+            }
+            
+        except HTTPException as he:
+            raise he
+        except Exception as e:
+            logger.error(f"Ошибка при получении ответа по ID: {str(e)}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Ошибка при получении ответа: {str(e)}"
             )
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM localhost:5000/python:3.9
 
 WORKDIR /app
 

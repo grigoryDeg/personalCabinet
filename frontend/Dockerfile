@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM localhost:5000/nginx:alpine
 
 COPY . /usr/share/nginx/html/
 RUN chmod -R 644 /usr/share/nginx/html/css/*.css
