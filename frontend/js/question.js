@@ -46,23 +46,17 @@ async function loadNextQuestion() {
             throw new Error('Следующий вопрос не найден');
         }
         
-        // Обновляем UI
+        // Обновляем UI с анимацией
         const questionCard = document.querySelector('.question-card');
-        questionCard.style.pointerEvents = 'none';
         
-        // Начальное состояние для анимации исчезновения
-        questionCard.style.transform = 'translateX(0)';
-        questionCard.style.opacity = '1';
-        
-        // Анимация исчезновения
-        questionCard.style.transform = 'translateX(-100%)';
-        questionCard.style.opacity = '0';
+        // Добавляем класс для анимации исчезновения
+        questionCard.classList.add('fade-out');
         
         // Ждем завершения анимации исчезновения
-        await new Promise(resolve => setTimeout(resolve, 500));
-
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Обновляем содержимое
         const solvedBadge = document.getElementById('solvedBadge');
-
         if (question.is_solved) {
             solvedBadge.style.display = 'flex';
         } else {
@@ -72,9 +66,9 @@ async function loadNextQuestion() {
         // Обновляем содержимое карточки
         document.querySelector('h2').textContent = `Вопрос №${question.id}`;
         document.querySelector('.question-text p').textContent = question.question_text;
-        document.querySelector('#userAnswer').value = ''; // Очищаем поле ввода
+        document.querySelector('#userAnswer').value = '';
 
-        // Обрабатываем изображение, если оно есть
+        // Обрабатываем изображение
         const questionImage = document.getElementById('questionImage');
         const imageElement = questionImage.querySelector('img');
 
@@ -86,25 +80,24 @@ async function loadNextQuestion() {
             imageElement.src = '';
         }
         
-        // Убираем класс fade-out и добавляем fade-in
-        questionCard.classList.remove('fade-out');
+        // Убираем класс перевернутой карточки, если он был
+        questionCard.classList.remove('flipped');
         
         // Небольшая задержка перед анимацией появления
         await new Promise(resolve => setTimeout(resolve, 50));
         
-        // Возвращаем карточку в исходное положение
-        questionCard.style.transform = 'translateX(0)';
-        questionCard.style.opacity = '1';
+        // Добавляем класс для анимации появления
+        questionCard.classList.remove('fade-out');
         questionCard.classList.add('fade-in');
         
-        // Восстанавливаем взаимодействие после завершения анимации
-        setTimeout(() => {
-            questionCard.style.pointerEvents = 'auto';
-            questionCard.classList.remove('fade-in');
-        }, 500);
-        
-        // Обновляем URL с правильным ID следующего вопроса
+        // Обновляем URL
         window.history.pushState({}, '', `/question.html?id=${question.id}`);
+        
+        // Убираем класс fade-in после завершения анимации
+        setTimeout(() => {
+            questionCard.classList.remove('fade-in');
+        }, 300);
+        
     } catch (error) {
         console.error('Ошибка:', error);
         document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';

@@ -1,49 +1,11 @@
-2025-05-14 13:32:27,491 - uvicorn.error - INFO - Will watch for changes in these directories: ['/app']
-2025-05-14 13:32:27,492 - uvicorn.error - INFO - Uvicorn running on https://0.0.0.0:8000 (Press CTRL+C to quit)
-2025-05-14 13:32:27,492 - uvicorn.error - INFO - Started reloader process [1] using statreload
-2025-05-14 13:32:27,930 - uvicorn.error - INFO - Started server process [9]
-2025-05-14 13:32:27,931 - uvicorn.error - INFO - Waiting for application startup.
-2025-05-14 13:32:27,931 - uvicorn.error - INFO - Application startup complete.
-2025-05-14 13:32:31,673 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:32:33,870 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:32:41,178 - main - INFO - Попытка входа пользователя: grigory
-2025-05-14 13:32:41,183 - main - INFO - Успешный вход пользователя: grigory
-2025-05-14 13:32:41,305 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:32:42,635 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:32:44,837 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:35:01,339 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:38:44,541 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:44:00,319 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:46:00,179 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:48:06,706 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:49:16,407 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:50:21,331 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:51:13,271 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:51:36,993 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:51:39,477 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:51:41,772 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:01,616 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:07,938 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:10,384 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:11,433 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:34,439 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:39,201 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:56:48,600 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:57:34,146 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:58:36,883 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 13:58:39,346 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:01:33,439 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:01:43,137 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:21:06,797 - main - INFO - Попытка входа пользователя: grigory
-2025-05-14 14:21:06,802 - main - INFO - Успешный вход пользователя: grigory
-2025-05-14 14:21:06,953 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:21:10,407 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:21:15,134 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:21:43,919 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:21:44,786 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:21:45,576 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:24:15,339 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:24:24,846 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:24:25,967 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:24:48,359 - main - INFO - Запрос профиля пользователя: grigory
-2025-05-14 14:24:49,380 - main - INFO - Запрос профиля пользователя: grigory
+2025-05-15 07:32:30,033 - uvicorn.error - INFO - Will watch for changes in these directories: ['/app']
+2025-05-15 07:32:30,034 - uvicorn.error - INFO - Uvicorn running on https://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-05-15 07:32:30,034 - uvicorn.error - INFO - Started reloader process [1] using statreload
+2025-05-15 07:32:30,515 - uvicorn.error - INFO - Started server process [8]
+2025-05-15 07:32:30,516 - uvicorn.error - INFO - Waiting for application startup.
+2025-05-15 07:32:30,516 - uvicorn.error - INFO - Application startup complete.
+2025-05-15 07:32:49,932 - main - INFO - Попытка входа пользователя: grigory
+2025-05-15 07:32:49,973 - main - INFO - Успешный вход пользователя: grigory
+2025-05-15 07:32:50,061 - main - INFO - Запрос профиля пользователя: grigory
+2025-05-15 07:32:52,140 - main - INFO - Запрос профиля пользователя: grigory
+2025-05-15 07:32:54,183 - main - INFO - Запрос профиля пользователя: grigory
