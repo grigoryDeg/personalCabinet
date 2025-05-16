@@ -5,25 +5,17 @@ import uvicorn
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from together import Together
-import logging
 import os
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
 from models import User, UserLogin
-from auth import get_current_user, create_access_token  # Добавляем импорт create_access_token
-from models import Question, Answer, UserQuestionHistory  # Изменяем импорт здесь
+from auth import get_current_user, create_access_token
+from models import Question, Answer, UserQuestionHistory
 from models import Base
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.exc import IntegrityError
-
-# Настройка логирования
-logging.basicConfig(
-    filename='/var/log/backend/app.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from sqlalchemy import select, func, delete
 
 # Настройки базы данных
 DATABASE_URL = "postgresql+asyncpg://admin:admin@postgres:5432/personal_cabinet"
@@ -32,6 +24,10 @@ DATABASE_URL = "postgresql+asyncpg://admin:admin@postgres:5432/personal_cabinet"
 SECRET_KEY = "your-secret-key"  # В реальном приложении использовать безопасный ключ
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+# Настройки SSL
+ssl_keyfile = "/etc/ssl/nginx.key"
+ssl_certfile = "/etc/ssl/nginx.crt"
 
 app = FastAPI()
 router = APIRouter()
@@ -75,14 +71,12 @@ async def init_test_users():
                     user_password=user_data["password"]  # В реальном приложении нужно хешировать
                 )
                 session.add(new_user)
-                logger.info(f"Создан тестовый пользователь: {user_data['username']}")
         
         await session.commit()
 
 @app.post("/api/login")
 async def login(user_data: UserLogin):
     try:
-        logger.info(f"Попытка входа пользователя: {user_data.username}")
         
         async with async_session() as session:
             query = select(User).where(User.user_name == user_data.username)
@@ -90,14 +84,12 @@ async def login(user_data: UserLogin):
             user = result.scalar_one_or_none()
             
             if not user:
-                logger.warning(f"Неудачная попытка входа: пользователь {user_data.username} не найден")
                 raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
                     detail="Неверные учетные данные"
                 )
             
             if user.user_password != user_data.password:
-                logger.warning(f"Неудачная попытка входа: неверный пароль для пользователя {user_data.username}")
                 raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
                     detail="Неверные учетные данные"
@@ -105,10 +97,8 @@ async def login(user_data: UserLogin):
             
             try:
                 access_token = create_access_token(data={"sub": user_data.username})
-                logger.info(f"Успешный вход пользователя: {user_data.username}")
                 return {"access_token": access_token, "token_type": "bearer"}
             except Exception as token_error:
-                logger.error(f"Ошибка создания токена: {str(token_error)}")
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     detail="Ошибка создания токена доступа"
@@ -116,7 +106,6 @@ async def login(user_data: UserLogin):
     except HTTPException as he:
         raise he
     except Exception as e:
-        logger.error(f"Ошибка при входе пользователя {user_data.username}: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Внутренняя ошибка сервера"
@@ -124,7 +113,6 @@ async def login(user_data: UserLogin):
 
 @app.get("/api/profile")
 async def get_profile(current_user: User = Depends(get_current_user)):
-    logger.info(f"Запрос профиля пользователя: {current_user.user_name}")
     return {
         "username": current_user.user_name,
         "id": current_user.id
@@ -157,12 +145,7 @@ app.include_router(router)
 # Добавляем тестовый эндпоинт для проверки работоспособности
 @app.get("/api/health")
 async def health_check():
-    logger.info("Проверка работоспособности API")
     return {"status": "ok"}
-
-# Настройки SSL
-ssl_keyfile = "/etc/ssl/nginx.key"
-ssl_certfile = "/etc/ssl/nginx.crt"
 
 @app.post("/api/questions")
 async def create_question(question: dict, current_user: User = Depends(get_current_user)):
@@ -194,7 +177,6 @@ async def create_question(question: dict, current_user: User = Depends(get_curre
                 await session.refresh(new_question)
             except IntegrityError as ie:
                 await session.rollback()
-                logger.error(f"Ошибка целостности данных при создании вопроса: {str(ie)}")
                 raise HTTPException(
                     status_code=status.HTTP_409_CONFLICT,
                     detail="Конфликт при создании вопроса. Пожалуйста, попробуйте еще раз."
@@ -208,7 +190,6 @@ async def create_question(question: dict, current_user: User = Depends(get_curre
     except HTTPException as he:
         raise he
     except Exception as e:
-        logger.error(f"Ошибка при создании вопроса: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Ошибка при создании вопроса"
@@ -236,7 +217,6 @@ async def get_questions_count(current_user: User = Depends(get_current_user)):
             }
             
         except Exception as e:
-            logger.error(f"Ошибка при получении количества вопросов: {str(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Ошибка при получении количества вопросов"
@@ -246,27 +226,26 @@ async def get_questions_count(current_user: User = Depends(get_current_user)):
 async def get_question_by_id(question_id: int, current_user: User = Depends(get_current_user)):
     async with async_session() as session:
         try:
-            # Получаем вопрос по ID
-            question_query = select(Question).where(Question.id == question_id)
-            question_result = await session.execute(question_query)
-            question = question_result.scalar_one_or_none()
+            # Получаем вопрос по ID и его порядковый номер
+            question_query = text(
+                "WITH question_data AS ("
+                "SELECT q.*, "
+                "ROW_NUMBER() OVER (ORDER BY q.id ASC) as question_number "
+                "FROM questions q"
+                ") "
+                "SELECT * FROM question_data WHERE id = :question_id"
+            )
+            question_result = await session.execute(question_query, {"question_id": question_id})
+            question_row = question_result.fetchone()
             
-            if not question:
+            if not question_row:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
                     detail="Вопрос не найден"
                 )
             
-            # Проверяем, есть ли вопрос в истории пользователя
-            history_query = select(UserQuestionHistory).where(
-                UserQuestionHistory.user_id == current_user.id,
-                UserQuestionHistory.question_id == question.id
-            )
-            history_result = await session.execute(history_query)
-            history_entry = history_result.scalar_one_or_none()
-            
             # Получаем следующий вопрос по ID
-            next_question_query = select(Question).where(Question.id > question.id).order_by(Question.id.asc()).limit(1)
+            next_question_query = select(Question).where(Question.id > question_id).order_by(Question.id.asc()).limit(1)
             next_question_result = await session.execute(next_question_query)
             next_question = next_question_result.scalar_one_or_none()
             
@@ -276,17 +255,79 @@ async def get_question_by_id(question_id: int, current_user: User = Depends(get_
                 first_question_result = await session.execute(first_question_query)
                 next_question = first_question_result.scalar_one_or_none()
             
+            # Проверяем, есть ли вопрос в истории пользователя
+            history_query = select(UserQuestionHistory).where(
+                UserQuestionHistory.user_id == current_user.id,
+                UserQuestionHistory.question_id == question_row.id
+            )
+            history_result = await session.execute(history_query)
+            history_entry = history_result.scalar_one_or_none()
+            
             return {
-                "id": question.id,
-                "question_text": question.question_text,
-                "is_there_media": question.is_there_media,
-                "media_url": question.media_url if question.is_there_media else None,
+                "id": question_row.id,
+                "question_text": question_row.question_text,
+                "is_there_media": question_row.is_there_media,
+                "media_url": question_row.media_url if question_row.is_there_media else None,
                 "is_solved": history_entry is not None,
-                "next_question_id": next_question.id if next_question else None
+                "next_question_id": next_question.id if next_question else None,
+                "question_number": question_row.question_number
             }
             
         except Exception as e:
-            logger.error(f"Ошибка при получении вопроса по ID: {str(e)}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Ошибка при получении вопроса: {str(e)}"
+            )
+
+@app.get("/api/questions/byNumber/{question_number}")
+async def get_question_by_number(question_number: int, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        try:
+            # Получаем общее количество вопросов
+            count_query = select(func.count()).select_from(Question)
+            count_result = await session.execute(count_query)
+            total_count = count_result.scalar()
+
+            # Вычисляем номер следующего вопроса с учетом цикличности
+            next_number = 1 if question_number >= total_count else question_number + 1
+
+            # Получаем текущий вопрос
+            current_question_query = text(
+                "WITH question_data AS ("
+                "SELECT q.*, "
+                "ROW_NUMBER() OVER (ORDER BY q.id ASC) as question_number "
+                "FROM questions q"
+                ") "
+                "SELECT * FROM question_data WHERE question_number = :question_number"
+            )
+            current_question_result = await session.execute(current_question_query, {"question_number": question_number})
+            current_question = current_question_result.fetchone()
+            
+            if not current_question:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Вопрос не найден"
+                )
+            
+            # Проверяем, есть ли вопрос в истории пользователя
+            history_query = select(UserQuestionHistory).where(
+                UserQuestionHistory.user_id == current_user.id,
+                UserQuestionHistory.question_id == current_question.id
+            )
+            history_result = await session.execute(history_query)
+            history_entry = history_result.scalar_one_or_none()
+            
+            return {
+                "id": current_question.id,
+                "question_text": current_question.question_text,
+                "is_there_media": current_question.is_there_media,
+                "media_url": current_question.media_url if current_question.is_there_media else None,
+                "is_solved": history_entry is not None,
+                "question_number": current_question.question_number,
+                "next_question_number": next_number
+            }
+            
+        except Exception as e:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Ошибка при получении вопроса: {str(e)}"
@@ -299,15 +340,16 @@ async def get_questions(current_user: User = Depends(get_current_user)):
             # Импортируем text из sqlalchemy
             from sqlalchemy import text
             
-            # Используем функцию text() для явного указания текстового SQL
+            # Модифицируем SQL-запрос для правильной нумерации
             sql = text(
                 "SELECT q.id, q.question_text, q.created_at, COUNT(a.id) as answers_count, "
-                "CASE WHEN qa.question_id IS NOT NULL THEN 'true' ELSE 'false' END as is_solved "
+                "CASE WHEN qa.question_id IS NOT NULL THEN 'true' ELSE 'false' END as is_solved, "
+                "ROW_NUMBER() OVER (ORDER BY q.id ASC) as question_number "  # Изменяем порядок для ROW_NUMBER
                 "FROM questions q "
                 "LEFT JOIN answers a ON q.id = a.question_id "
                 "LEFT JOIN user_question_history qa ON q.id = qa.question_id AND qa.user_id = :user_id "
                 "GROUP BY q.id, q.question_text, q.created_at, qa.question_id "
-                "ORDER BY q.created_at DESC"
+                "ORDER BY q.created_at DESC"  # Оставляем сортировку по дате для отображения
             )
             
             # Выполняем запрос с передачей параметра user_id
@@ -324,12 +366,12 @@ async def get_questions(current_user: User = Depends(get_current_user)):
                     "question_text": row.question_text,
                     "created_at": row.created_at.isoformat(),
                     "answers_count": row.answers_count,
-                    "is_solved": row.is_solved
+                    "is_solved": row.is_solved,
+                    "question_number": row.question_number  # Добавляем порядковый номер
                 })
             
             return questions_list
         except Exception as e:
-            logger.error(f"Ошибка при получении списка вопросов: {str(e)}")
             raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
 
 @app.post("/api/rememberQuestion")
@@ -362,48 +404,42 @@ async def remember_question(
             # Если запись уже существует, просто возвращаем успех
             return {"status": "success"}
         except Exception as e:
-            logger.error(f"Ошибка при сохранении истории просмотра: {str(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Ошибка при сохранении истории"
             )
 
-@app.get("/api/answers/{answer_id}")
-async def get_answer_by_id(answer_id: int, current_user: User = Depends(get_current_user)):
+@app.get("/api/answers/byNumber/{question_number}")
+async def get_answer_by_question_number(question_number: int, current_user: User = Depends(get_current_user)):
     async with async_session() as session:
         try:
-            # Получаем ответ по ID вопроса (не ответа)
-            answer_query = select(Answer).where(Answer.question_id == answer_id)
-            answer_result = await session.execute(answer_query)
-            answer = answer_result.scalar_one_or_none()
-            
-            if not answer:
-                # Проверяем существование самого вопроса
-                question_query = select(Question).where(Question.id == answer_id)
-                question_result = await session.execute(question_query)
-                question = question_result.scalar_one_or_none()
-                
-                if not question:
-                    raise HTTPException(
-                        status_code=status.HTTP_404_NOT_FOUND,
-                        detail="Вопрос не найден"
-                    )
-                    
-                # Если вопрос существует, но ответа нет
-                raise HTTPException(
-                    status_code=status.HTTP_404_NOT_FOUND,
-                    detail="Для данного вопроса пока нет ответа"
-                )
-            
-            # Проверяем, имеет ли пользователь доступ к этому ответу
-            question_query = select(Question).where(Question.id == answer.question_id)
-            question_result = await session.execute(question_query)
-            question = question_result.scalar_one_or_none()
+            # Получаем вопрос по его номеру
+            question_query = text(
+                "WITH question_data AS ("
+                "SELECT q.*, "
+                "ROW_NUMBER() OVER (ORDER BY q.id ASC) as question_number "
+                "FROM questions q"
+                ") "
+                "SELECT * FROM question_data WHERE question_number = :question_number"
+            )
+            question_result = await session.execute(question_query, {"question_number": question_number})
+            question = question_result.fetchone()
             
             if not question:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
-                    detail="Связанный вопрос не найден"
+                    detail="Вопрос не найден"
+                )
+            
+            # Получаем ответ по ID вопроса
+            answer_query = select(Answer).where(Answer.question_id == question.id)
+            answer_result = await session.execute(answer_query)
+            answer = answer_result.scalar_one_or_none()
+            
+            if not answer:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Для данного вопроса пока нет ответа"
                 )
             
             return {
@@ -419,10 +455,46 @@ async def get_answer_by_id(answer_id: int, current_user: User = Depends(get_curr
         except HTTPException as he:
             raise he
         except Exception as e:
-            logger.error(f"Ошибка при получении ответа по ID: {str(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Ошибка при получении ответа: {str(e)}"
+            )
+
+@app.delete("/api/questions/{question_id}")
+async def delete_question(question_id: int, current_user: User = Depends(get_current_user)):
+    async with async_session() as session:
+        try:
+            # Проверяем существование вопроса
+            question = await session.get(Question, question_id)
+            if not question:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="Вопрос не найден"
+                )
+            
+            # Удаляем связанные записи в истории пользователей
+            history_delete_query = delete(UserQuestionHistory).where(
+                UserQuestionHistory.question_id == question_id
+            )
+            await session.execute(history_delete_query)
+            
+            # Удаляем связанные ответы
+            answers_delete_query = delete(Answer).where(
+                Answer.question_id == question_id
+            )
+            await session.execute(answers_delete_query)
+            
+            # Удаляем сам вопрос
+            await session.delete(question)
+            await session.commit()
+            
+            return {"status": "success", "message": "Вопрос успешно удален"}
+            
+        except Exception as e:
+            await session.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Ошибка при удалении вопроса: {str(e)}"
             )
 
 if __name__ == "__main__":

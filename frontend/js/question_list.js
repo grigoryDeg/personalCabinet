@@ -1,27 +1,15 @@
 let currentQuestions = [];
+let isEditMode = false;
+let selectedQuestions = [];
 
 // Функция для загрузки списка вопросов
 async function loadQuestions() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
+    if(!checkAuth()) return;
     
     try {
-        const response = await fetch('/api/questions', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки вопросов');
-        }
-        
-        const questions = await response.json();
-        currentQuestions = questions; // Сохраняем вопросы в глобальную переменную
-        applyFiltersAndSort(); // Применяем фильтры и сортировку
+        const questions = await fetchApi('/api/questions');
+        currentQuestions = questions;
+        applyFiltersAndSort();
     } catch (error) {
         console.error('Ошибка:', error);
         document.getElementById('questions-list').innerHTML = `
@@ -48,9 +36,12 @@ function applyFiltersAndSort() {
     // Применяем фильтр по статусу
     const statusFilter = document.getElementById('statusFilter').value;
     if (statusFilter !== 'all') {
-        filteredQuestions = filteredQuestions.filter(q => 
-            statusFilter === 'solved' ? q.is_solved : !q.is_solved
-        );
+        const isSolved = statusFilter === 'solved';
+        filteredQuestions = filteredQuestions.filter(q => {
+            // Проверяем значение is_solved как булево или строку
+            const questionSolved = q.is_solved === true || q.is_solved === 'true';
+            return isSolved ? questionSolved : !questionSolved;
+        });
     }
     
     // Применяем сортировку
@@ -63,8 +54,6 @@ function applyFiltersAndSort() {
                 return new Date(b.created_at) - new Date(a.created_at);
             case 'oldest':
                 return new Date(a.created_at) - new Date(b.created_at);
-            case 'answers':
-                return (b.answers_count || 0) - (a.answers_count || 0);
             default:
                 return a.id - b.id; // По умолчанию сортируем по ID
         }
@@ -114,16 +103,20 @@ function displayQuestions(questions) {
         // Преобразуем строковое значение в булево
         const isSolved = question.is_solved === 'true' || question.is_solved === true;
         
+        // Проверяем, выбран ли вопрос в режиме редактирования
+        const isSelected = selectedQuestions.includes(question.id);
+        const selectedClass = isSelected ? 'selected' : '';
+        
         html += `
-            <div class="question-item" onclick="navigateToQuestion(${question.id})">
+            <div class="question-item ${selectedClass}" data-id="${question.id}" onclick="${isEditMode ? 'toggleQuestionSelection' : 'navigateToQuestion'}(${question.id}, event)">
                 <div class="d-flex justify-content-between align-items-start">
-                    <h4>Вопрос #${question.id}</h4>
-                    ${isSolved ? '<span class="solved-indicator"><i class="fas fa-check-circle"></i></span>' : ''}
+                    ${isEditMode ? `<div class="select-checkbox"><i class="fas ${isSelected ? 'fa-check-square' : 'fa-square'}"></i></div>` : ''}
+                    <h4>Вопрос №${question.question_number}</h4>
+                    ${!isEditMode && isSolved ? '<span class="solved-indicator"><i class="fas fa-check-circle"></i></span>' : ''}
                 </div>
                 <p>${truncateText(question.question_text, 150)}</p>
                 <div class="meta">
                     <span><i class="far fa-calendar-alt me-1"></i> ${formattedDate}</span>
-                    <span><i class="far fa-comments me-1"></i> ${question.answers_count || 0} ответов</span>
                 </div>
             </div>
         `;
@@ -132,36 +125,125 @@ function displayQuestions(questions) {
     questionsListElement.innerHTML = html;
 }
 
-// Функция для обрезки текста
-function truncateText(text, maxLength) {
-    if (text.length <= maxLength) return text;
-    return text.substr(0, maxLength) + '...';
+// Функция для переключения режима редактирования
+function toggleEditMode() {
+    isEditMode = !isEditMode;
+    selectedQuestions = [];
+    
+    // Обновляем UI
+    const editModeBtn = document.getElementById('editModeBtn');
+    const editModePanel = document.getElementById('editModePanel');
+    
+    if (isEditMode) {
+        editModeBtn.classList.add('active');
+        editModePanel.style.display = 'block';
+    } else {
+        editModeBtn.classList.remove('active');
+        editModePanel.style.display = 'none';
+    }
+    
+    // Обновляем отображение вопросов
+    applyFiltersAndSort();
+    
+    // Обновляем счетчик выбранных вопросов
+    updateSelectedCount();
+}
+
+// Функция для отмены режима редактирования
+function cancelEditMode() {
+    isEditMode = false;
+    selectedQuestions = [];
+    
+    // Обновляем UI
+    const editModeBtn = document.getElementById('editModeBtn');
+    const editModePanel = document.getElementById('editModePanel');
+    
+    editModeBtn.classList.remove('active');
+    editModePanel.style.display = 'none';
+    
+    // Обновляем отображение вопросов
+    applyFiltersAndSort();
+}
+
+// Функция для переключения выбора вопроса
+function toggleQuestionSelection(questionId, event) {
+    event.stopPropagation();
+    
+    const index = selectedQuestions.indexOf(questionId);
+    if (index === -1) {
+        selectedQuestions.push(questionId);
+    } else {
+        selectedQuestions.splice(index, 1);
+    }
+    
+    // Обновляем UI
+    const questionItem = event.currentTarget;
+    questionItem.classList.toggle('selected');
+    
+    // Обновляем иконку чекбокса
+    const checkbox = questionItem.querySelector('.select-checkbox i');
+    if (checkbox) {
+        checkbox.className = selectedQuestions.includes(questionId) ? 'fas fa-check-square' : 'fas fa-square';
+    }
+    
+    // Обновляем счетчик выбранных вопросов
+    updateSelectedCount();
+}
+
+// Функция для обновления счетчика выбранных вопросов
+function updateSelectedCount() {
+    const selectedCountElement = document.getElementById('selectedCount');
+    if (selectedCountElement) {
+        selectedCountElement.textContent = selectedQuestions.length;
+    }
+}
+
+// Функция для удаления выбранных вопросов
+async function deleteSelectedQuestions() {
+    if(!checkAuth()) return;
+    
+    if (selectedQuestions.length === 0) {
+        alert('Пожалуйста, выберите хотя бы один вопрос для удаления');
+        return;
+    }
+    
+    if (!confirm(`Вы уверены, что хотите удалить ${selectedQuestions.length} вопрос(ов)?`)) {
+        return;
+    }
+    
+    try {
+        for (const questionId of selectedQuestions) {
+            await fetchApi(`/api/questions/${questionId}`, {
+                method: 'DELETE'
+            });
+        }
+        
+        cancelEditMode();
+        loadQuestions();
+        
+        alert('Выбранные вопросы успешно удалены');
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при удалении вопросов. Пожалуйста, попробуйте позже.');
+    }
 }
 
 // Функция для перехода на страницу вопроса
-async function navigateToQuestion(questionId) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
+async function navigateToQuestion(questionId, event) {
+    if(!checkAuth()) return;
+    
+    if (event) {
+        event.stopPropagation();
+    }
+    
+    if (isEditMode) {
+        toggleQuestionSelection(questionId, event);
         return;
     }
 
     try {
-        const response = await fetch(`/api/questions/${questionId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки вопроса');
-        }
-
-        // Сохраняем данные вопроса в localStorage для передачи на следующую страницу
-        const question = await response.json();
+        const question = await fetchApi(`/api/questions/${questionId}`);
         localStorage.setItem('currentQuestion', JSON.stringify(question));
-        
-        // Переходим на страницу вопроса
         window.location.href = `/question.html?id=${question.id}`;
     } catch (error) {
         console.error('Ошибка:', error);
@@ -169,24 +251,14 @@ async function navigateToQuestion(questionId) {
     }
 }
 
-function displayQuestionDetails(question) {
-    const questionsListElement = document.getElementById('questions-list');
-    questionsListElement.innerHTML = `
-        <div class="question-details">
-            <h3>Вопрос #${question.id}</h3>
-            <div class="question-content">
-                <p>${question.question}</p>
-            </div>
-            ${question.is_solved ? '<div class="solved-badge"><i class="fas fa-check-circle"></i> Решено</div>' : ''}
-            <button class="submit-btn mt-3" onclick="loadQuestions()">
-                <i class="fas fa-arrow-left me-2"></i>
-                Вернуться к списку
-            </button>
-        </div>
-    `;
+// Функция для обрезки текста
+function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+        return text;
+    }
+    return text.slice(0, maxLength) + '...';
 }
 
-// Функция для отображения модального окна добавления вопроса
 function showAddQuestionModal() {
     const modal = new bootstrap.Modal(document.getElementById('addQuestionModal'));
     modal.show();
@@ -194,6 +266,8 @@ function showAddQuestionModal() {
 
 // Функция для добавления нового вопроса
 async function addQuestion() {
+    if(!checkAuth()) return;
+
     const questionText = document.getElementById('questionText').value.trim();
     
     if (!questionText) {
@@ -201,27 +275,11 @@ async function addQuestion() {
         return;
     }
     
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
-    
     try {
-        const response = await fetch('/api/questions', {
+        await fetchApi('/api/questions', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
             body: JSON.stringify({ text: questionText })
         });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка при добавлении вопроса');
-        }
-        
-        const result = await response.json();
         
         // Закрываем модальное окно
         const modal = bootstrap.Modal.getInstance(document.getElementById('addQuestionModal'));

@@ -1,20 +1,10 @@
 {
     "version": 1,
-    "disable_existing_loggers": false,
-    "formatters": {
-        "default": {
-            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        }
-    },
-    "handlers": {
-        "file": {
-            "class": "logging.FileHandler",
-            "formatter": "default",
-            "filename": "/var/log/backend/app.log"
-        }
-    },
+    "disable_existing_loggers": true,
+    "formatters": {},
+    "handlers": {},
     "root": {
-        "level": "INFO",
-        "handlers": ["file"]
+        "level": "WARNING",
+        "handlers": []
     }
 }

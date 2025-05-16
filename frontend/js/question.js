@@ -1,84 +1,35 @@
 // Функция для получения следующего вопроса
 async function loadNextQuestion() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
+    if(!checkAuth()) return;
     
     try {
-        // Получаем текущий ID вопроса из URL
+        // Получаем текущий номер вопроса из URL
         const urlParams = new URLSearchParams(window.location.search);
-        const currentId = parseInt(urlParams.get('id')) || 1;
+        const currentNumber = parseInt(urlParams.get('number')) || 1;
         
-        // Сначала сохраняем текущий вопрос в истории просмотров
-        await rememberQuestion(currentId);
+        // Сначала получаем общее количество вопросов
+        const countResponse = await fetchApi('/api/questions/count');
+        const totalCount = countResponse.count;
         
-        // Получаем общее количество вопросов
-        const totalQuestionsResponse = await fetch('/api/questions/count', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        // Вычисляем номер следующего вопроса с учетом цикличности
+        const nextNumber = currentNumber >= totalCount ? 1 : currentNumber + 1;
         
-        if (!totalQuestionsResponse.ok) {
-            throw new Error('Ошибка получения количества вопросов');
-        }
+        // Загружаем следующий вопрос по вычисленному номеру
+        const question = await fetchApi(`/api/questions/byNumber/${nextNumber}`);
         
-        const { count } = await totalQuestionsResponse.json();
-        
-        // Вычисляем ID следующего вопроса с учетом цикличности
-        const nextId = currentId >= count ? 1 : currentId + 1;
-        
-        // Затем загружаем следующий вопрос
-        const response = await fetch(`/api/questions/${nextId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки вопроса');
-        }
-        
-        const question = await response.json();
         if (!question) {
             throw new Error('Следующий вопрос не найден');
         }
         
         // Обновляем UI с анимацией
         const questionCard = document.querySelector('.question-card');
-        
-        // Добавляем класс для анимации исчезновения
         questionCard.classList.add('fade-out');
         
         // Ждем завершения анимации исчезновения
         await new Promise(resolve => setTimeout(resolve, 300));
         
         // Обновляем содержимое
-        const solvedBadge = document.getElementById('solvedBadge');
-        if (question.is_solved) {
-            solvedBadge.style.display = 'flex';
-        } else {
-            solvedBadge.style.display = 'none';
-        }
-
-        // Обновляем содержимое карточки
-        document.querySelector('h2').textContent = `Вопрос №${question.id}`;
-        document.querySelector('.question-text p').textContent = question.question_text;
-        document.querySelector('#userAnswer').value = '';
-
-        // Обрабатываем изображение
-        const questionImage = document.getElementById('questionImage');
-        const imageElement = questionImage.querySelector('img');
-
-        if (question.is_there_media && question.media_url) {
-            imageElement.src = question.media_url;
-            questionImage.style.display = 'block';
-        } else {
-            questionImage.style.display = 'none';
-            imageElement.src = '';
-        }
+        displayQuestion(question);
         
         // Убираем класс перевернутой карточки, если он был
         questionCard.classList.remove('flipped');
@@ -90,8 +41,8 @@ async function loadNextQuestion() {
         questionCard.classList.remove('fade-out');
         questionCard.classList.add('fade-in');
         
-        // Обновляем URL
-        window.history.pushState({}, '', `/question.html?id=${question.id}`);
+        // Обновляем URL, используя номер следующего вопроса
+        window.history.pushState({}, '', `/question.html?number=${nextNumber}`);
         
         // Убираем класс fade-in после завершения анимации
         setTimeout(() => {
@@ -104,96 +55,13 @@ async function loadNextQuestion() {
     }
 }
 
-// Функция для сохранения вопроса в истории просмотров
-async function rememberQuestion(questionId) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        return;
-    }
-    
-    try {
-        const response = await fetch('/api/rememberQuestion', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ question_id: questionId })
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка при сохранении вопроса в истории');
-        }
-        
-    } catch (error) {
-        console.error('Ошибка:', error);
-    }
-}
-
-// Функция для загрузки конкретного вопроса по ID
-async function loadQuestionById(questionId) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
-    
-    try {
-        const response = await fetch(`/api/questions/${questionId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки вопроса');
-        }
-        
-        const question = await response.json();
-        displayQuestion(question);
-        
-    } catch (error) {
-        console.error('Ошибка:', error);
-        document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
-    }
-}
-
-// Загружаем вопрос при загрузке страницы
-document.addEventListener('DOMContentLoaded', async function() {
-    // Получаем ID вопроса из URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const questionId = urlParams.get('id');
-    
-    if (questionId) {
-        // Если есть ID в URL, загружаем вопрос по ID
-        await loadQuestionById(questionId);
-    } else {
-        // Если нет ID, пробуем загрузить из localStorage
-        const savedQuestion = localStorage.getItem('currentQuestion');
-        if (savedQuestion) {
-            try {
-                const question = JSON.parse(savedQuestion);
-                displayQuestion(question);
-            } catch (error) {
-                // Если возникла ошибка при парсинге, загружаем первый вопрос
-                loadNextQuestion();
-            }
-        } else {
-            // Если нет данных в localStorage, загружаем первый вопрос
-            loadNextQuestion();
-        }
-    }
-    
-    // Очищаем localStorage после использования
-    localStorage.removeItem('currentQuestion');
-});
-
+// Функция для отображения вопроса
 function displayQuestion(question) {
     const questionCard = document.querySelector('.question-card');
     const solvedBadge = document.getElementById('solvedBadge');
 
-    // Обновляем заголовок
-    document.querySelector('h2').textContent = `Вопрос №${question.id}`;
+    // Обновляем заголовок, используя question_number вместо id
+    document.querySelector('h2').textContent = `Вопрос №${question.question_number}`;
     
     // Обновляем текст вопроса
     document.querySelector('.question-text p').textContent = question.question_text;
@@ -221,48 +89,46 @@ function displayQuestion(question) {
     document.querySelector('#userAnswer').value = '';
 }
 
-async function submitAnswer() {
-    const userAnswer = document.getElementById('userAnswer').value;
-    if (!userAnswer.trim()) {
-        alert('Пожалуйста, введите ваш ответ');
-        return;
-    }
+// Функция для загрузки конкретного вопроса по ID
+async function loadQuestionById(questionId) {
+    if(!checkAuth()) return;
     
     try {
-        // Получаем ID текущего вопроса из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const questionId = urlParams.get('id');
+        const question = await fetchApi(`/api/questions/${questionId}`);
+        displayQuestion(question);
+    } catch (error) {
+        console.error('Ошибка:', error);
+        document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
+    }
+}
+
+async function loadQuestionByNumber(questionNumber) {
+    if(!checkAuth()) return;
+    
+    try {
+        const question = await fetchApi(`/api/questions/byNumber/${questionNumber}`);
+        displayQuestion(question);
         
-        // Получаем токен авторизации
-        const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = '/';
-            return;
-        }
-
-        // Получаем правильный ответ для текущего вопроса
-        const response = await fetch(`/api/answers/${questionId}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (response.status === 404) {
-            const errorData = await response.json();
-            // Создаем модальное окно
+        // Обновляем URL после успешной загрузки
+        window.history.pushState({}, '', `/question.html?number=${question.question_number}`);
+    } catch (error) {
+        console.error('Ошибка:', error);
+        if (error.message.includes('404')) {
+            // Создаем модальное окно для 404 ошибки
             const modalHtml = `
-                <div class="modal" id="noAnswerModal" tabindex="-1" role="dialog">
+                <div class="modal" id="questionNotFoundModal" tabindex="-1" role="dialog">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content" role="document">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="noAnswerModalLabel">Ответ недоступен</h5>
+                                <h5 class="modal-title" id="questionNotFoundModalLabel">Вопрос не найден</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" title="Закрыть"></button>
                             </div>
                             <div class="modal-body">
-                                <p>${errorData.detail}</p>
+                                <p>Запрашиваемый вопрос не найден в базе данных.</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Закрыть окно">Закрыть</button>
+                                <button type="button" class="btn btn-primary" onclick="loadQuestionByNumber(1)">Перейти к первому вопросу</button>
                             </div>
                         </div>
                     </div>
@@ -272,21 +138,65 @@ async function submitAnswer() {
             document.body.insertAdjacentHTML('beforeend', modalHtml);
             
             // Показываем модальное окно
-            const modal = new bootstrap.Modal(document.getElementById('noAnswerModal'));
+            const modal = new bootstrap.Modal(document.getElementById('questionNotFoundModal'));
             modal.show();
             
             // Удаляем модальное окно после закрытия
-            document.getElementById('noAnswerModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('questionNotFoundModal').addEventListener('hidden.bs.modal', function () {
                 this.remove();
             });
             return;
         }
+        document.querySelector('.question-text p').textContent = 'Произошла ошибка при загрузке вопроса. Пожалуйста, попробуйте позже.';
+    }
+}
 
-        if (!response.ok) {
-            throw new Error('Ошибка при получении ответа');
+// Изменяем обработчик загрузки страницы
+document.addEventListener('DOMContentLoaded', async function() {
+    // Получаем номер вопроса из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionNumber = urlParams.get('number');
+    
+    if (questionNumber) {
+        // Если есть номер в URL, загружаем вопрос по номеру
+        await loadQuestionByNumber(questionNumber);
+    } else {
+        // Если нет номера, пробуем загрузить из localStorage
+        const savedQuestion = localStorage.getItem('currentQuestion');
+        if (savedQuestion) {
+            try {
+                const question = JSON.parse(savedQuestion);
+                displayQuestion(question);
+                // Обновляем URL после отображения
+                window.history.pushState({}, '', `/question.html?number=${question.question_number}`);
+            } catch (error) {
+                // Если возникла ошибка при парсинге, загружаем первый вопрос
+                loadQuestionByNumber(1);
+            }
+        } else {
+            // Если нет данных в localStorage, загружаем первый вопрос
+            loadQuestionByNumber(1);
         }
+    }
+    
+    // Очищаем localStorage после использования
+    localStorage.removeItem('currentQuestion');
+});
 
-        const answerData = await response.json();
+async function submitAnswer() {
+    const userAnswer = document.getElementById('userAnswer').value;
+    if (!userAnswer.trim()) {
+        alert('Пожалуйста, введите ваш ответ');
+        return;
+    }
+    
+    try {
+        // Получаем номер текущего вопроса из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const questionNumber = urlParams.get('number');
+        
+        // Получаем правильный ответ для текущего вопроса по его номеру
+        const answerData = await fetchApi(`/api/answers/byNumber/${questionNumber}`);
         
         // Отображаем ответ пользователя
         document.getElementById('userAnswerDisplay').textContent = userAnswer;
@@ -310,6 +220,53 @@ async function submitAnswer() {
         document.querySelector('.question-card').classList.add('flipped');
         
     } catch (error) {
+        if (error.message.includes('404')) {
+            // Получаем детали ошибки из объекта error
+            let errorMessage = 'Ответ для данного вопроса не найден';
+            
+            try {
+                // Проверяем наличие JSON в сообщении об ошибке
+                const errorText = error.message.split('404 ')[1];
+                if (errorText) {
+                    const errorDetail = JSON.parse(errorText);
+                    errorMessage = errorDetail.detail.message || errorDetail.detail || errorMessage;
+                }
+            } catch (e) {
+                console.error('Ошибка при парсинге деталей ошибки:', e);
+            }
+            
+            // Создаем модальное окно для 404 ошибки
+            const modalHtml = `
+                <div class="modal" id="noAnswerModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" role="document">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="noAnswerModalLabel">Ответ недоступен</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть" title="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>${errorMessage}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Закрыть окно">Закрыть</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            
+            // Добавляем модальное окно в DOM
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            
+            // Показываем модальное окно
+            const modal = new bootstrap.Modal(document.getElementById('noAnswerModal'));
+            modal.show();
+            
+            // Удаляем модальное окно после закрытия
+            document.getElementById('noAnswerModal').addEventListener('hidden.bs.modal', function () {
+                this.remove();
+            });
+            return;
+        }
         console.error('Ошибка:', error);
         alert('Произошла ошибка при проверке ответа. Пожалуйста, попробуйте позже.');
     }

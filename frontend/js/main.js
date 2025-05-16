@@ -1,22 +1,9 @@
+// Функция для загрузки профиля пользователя (его имени) 
 async function loadProfile() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
+    if(!checkAuth()) return;
     
     try {
-        const response = await fetch('/api/profile', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        
-        if (!response.ok) {
-            throw new Error('Ошибка загрузки профиля');
-        }
-        
-        const profile = await response.json();
+        const profile = await fetchApi('/api/profile');
         
         // Обновляем имя пользователя на всех страницах
         const usernameElement = document.getElementById('username');
@@ -29,12 +16,13 @@ async function loadProfile() {
     }
 }
 
+// Функция для выхода из системы
 function logout() {
     localStorage.removeItem('token');
     window.location.href = '/';
 } 
 
-// Проверяем авторизацию при загрузке страницы
+// Проверяем авторизацию при загрузке страниц dashboadrd.html, question.html, question_list.html
 window.onload = function() {
     const token = localStorage.getItem('token');
     const isDashboard = window.location.pathname.includes('dashboard.html');
@@ -54,11 +42,13 @@ window.onload = function() {
     }
 };
 
+// Функция для сворачивания/разворачивания виджета ИИ-ассистента
 function toggleAssistant() {
     const widget = document.querySelector('.ai-assistant-widget');
     widget.classList.toggle('minimized');
 }
 
+// Функция для отправки сообщения ИИ-ассистенту
 async function sendMessage() {
     const input = document.getElementById('userMessage');
     const message = input.value.trim();
@@ -90,6 +80,7 @@ async function sendMessage() {
     }
 }
 
+// Функция для добавления сообщения в чат ИИ-ассистенту
 function addMessage(text, type) {
     const messagesContainer = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
@@ -99,7 +90,7 @@ function addMessage(text, type) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Добавляем обработчик для отправки сообщений по Enter
+// Добавляем обработчик для отправки сообщений по Enter для отправки сообщений в чат ИИ-ассистенту
 document.addEventListener('DOMContentLoaded', function() {
     const userMessageInput = document.getElementById('userMessage');
     
@@ -113,11 +104,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Переход на страницу вопроса
 function navigateToQuestionPage(event) {
     event.preventDefault();
     window.location.href = '/question.html';
 }
 
+// Переход на страницу списка вопросов
 function navigateToQuestionsPage(event) {
     event.preventDefault();
     window.location.href = '/question_list.html';

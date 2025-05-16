@@ -1,24 +1,10 @@
+// Функция для проверки авторизации и обновления контента страницы dashboard.html
 document.addEventListener('DOMContentLoaded', async function() {
-    // Проверяем токен
-    const token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = '/';
-        return;
-    }
+    if(!checkAuth()) return;
 
     try {
-        // Получаем статистику по вопросам
-        const response = await fetch('/api/questions/count', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Ошибка получения статистики');
-        }
-
-        const stats = await response.json();
+        // Получаем статистику по вопросам используя универсальную функцию fetchApi
+        const stats = await fetchApi('/api/questions/count');
         
         // Обновляем статистику в карточке "Задачи из базы данных"
         const dbTasksStats = document.querySelector('.stat-card:first-child p');
@@ -32,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         dbTasksStats.style.color = '#dc3545';
     }
 
-    // Отображаем имя пользователя
+    // Отображаем имя пользователя в поле ЛК
     const username = localStorage.getItem('username');
     if (username) {
         document.getElementById('username').textContent = username;
