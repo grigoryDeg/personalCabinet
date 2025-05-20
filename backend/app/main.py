@@ -2,7 +2,8 @@ from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 import uvicorn
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession
+from database import async_session, engine
 from sqlalchemy.orm import sessionmaker
 from together import Together
 import os
@@ -16,6 +17,7 @@ from models import Base
 from sqlalchemy import func, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select, func, delete
+from chat import router as chat_router
 
 # Настройки базы данных
 DATABASE_URL = "postgresql+asyncpg://admin:admin@postgres:5432/personal_cabinet"
@@ -39,12 +41,6 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-
-# Подключение к базе данных
-engine = create_async_engine(DATABASE_URL)
-async_session = sessionmaker(
-    engine, expire_on_commit=False, class_=AsyncSession
 )
 
 # Настройка OAuth2
@@ -118,29 +114,11 @@ async def get_profile(current_user: User = Depends(get_current_user)):
         "id": current_user.id
     }
 
-# Добавляем эндпоинт для API Together
-@router.post("/api/chat")
-async def chat(message: dict, current_user = Depends(get_current_user)):
-    try:
-        api_key = os.getenv("TOGETHER_API_KEY")
-        if not api_key:
-            raise HTTPException(
-                status_code=500,
-                detail="API ключ Together не настроен"
-            )
-        client = Together(api_key=api_key)  # Используем переменную окружения TOGETHER_API_KEY
-        
-        response = client.chat.completions.create(
-            model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
-            messages=[{"role": "user", "content": message["message"]}]
-        )
-        
-        return {"response": response.choices[0].message.content}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-# Подключаем роутер к приложению
+# Подключаем основной роутер
 app.include_router(router)
+
+# Подключаем роутер чата
+app.include_router(chat_router, prefix="/api")
 
 # Добавляем тестовый эндпоинт для проверки работоспособности
 @app.get("/api/health")

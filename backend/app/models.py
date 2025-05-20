@@ -53,6 +53,32 @@ class UserQuestionHistory(Base):
         Index('idx_history_question', question_id),
     )
 
+class Conversation(Base):
+    __tablename__ = 'conversations'
+    
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
+    created_at = Column(DateTime, nullable=False, default=datetime.now)
+    last_message_at = Column(DateTime, nullable=False, default=datetime.now)
+    is_active = Column(Boolean, default=True)
+
+    __table_args__ = (
+        Index('idx_conversation_user', user_id),
+    )
+
+class Message(Base):
+    __tablename__ = 'messages'
+    
+    id = Column(Integer, primary_key=True)
+    conversation_id = Column(Integer, ForeignKey('conversations.id', ondelete='CASCADE'))
+    content = Column(Text, nullable=False)
+    is_from_user = Column(Boolean, default=True)  # True если от пользователя, False если от ассистента
+    created_at = Column(DateTime, nullable=False, default=datetime.now)
+
+    __table_args__ = (
+        Index('idx_message_conversation', conversation_id),
+    )
+
 # Pydantic модели для API
 class UserLogin(BaseModel):
     username: str

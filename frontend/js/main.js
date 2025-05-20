@@ -16,6 +16,31 @@ async function loadProfile() {
     }
 }
 
+// Функция для загрузки истории чата
+async function loadChatHistory() {
+    if(!checkAuth()) return;
+    
+    try {
+        const chatHistory = await fetchApi('/api/chat/history');
+        const messagesContainer = document.getElementById('chatMessages');
+        
+        if (messagesContainer && chatHistory.length > 0) {
+            // Очищаем контейнер сообщений перед добавлением истории
+            messagesContainer.innerHTML = '';
+            
+            // Добавляем каждое сообщение из истории
+            chatHistory.forEach(message => {
+                addMessage(message.content, message.is_from_user ? 'user' : 'assistant');
+            });
+            
+            // Прокручиваем к последнему сообщению
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    } catch (error) {
+        console.error('Ошибка при загрузке истории чата:', error);
+    }
+}
+
 // Функция для выхода из системы
 function logout() {
     localStorage.removeItem('token');
@@ -23,7 +48,7 @@ function logout() {
 } 
 
 // Проверяем авторизацию при загрузке страниц dashboadrd.html, question.html, question_list.html
-window.onload = function() {
+window.onload = async function() {
     const token = localStorage.getItem('token');
     const isDashboard = window.location.pathname.includes('dashboard.html');
     const isQuestion = window.location.pathname.includes('question.html');
@@ -38,14 +63,47 @@ window.onload = function() {
     
     // Загружаем профиль для всех авторизованных страниц
     if (isDashboard || isQuestion || isQuestionList) {
-        loadProfile();
+        await loadProfile();
+        await loadChatHistory();
+        initAssistantState();
+        initAssistantListeners();
     }
 };
 
-// Функция для сворачивания/разворачивания виджета ИИ-ассистента
-function toggleAssistant() {
-    const widget = document.querySelector('.ai-assistant-widget');
-    widget.classList.toggle('minimized');
+// Инициализация состояния чата
+function initAssistantState() {
+    const chatBody = document.querySelector('#chatBody');
+    if (!chatBody) return;
+    
+    const savedState = localStorage.getItem('assistantState');
+    console.log('Загружено состояние:', savedState);
+    
+    // Инициализируем collapse через Bootstrap
+    const bsCollapse = new bootstrap.Collapse(chatBody, {
+        toggle: false
+    });
+    
+    if (savedState === 'true') {
+        bsCollapse.hide();
+    } else {
+        bsCollapse.show();
+    }
+}
+
+// Добавляем слушатели событий Bootstrap
+function initAssistantListeners() {
+    const chatBody = document.querySelector('#chatBody');
+    if (!chatBody) return;
+    
+    chatBody.addEventListener('show.bs.collapse', function () {
+        localStorage.setItem('assistantState', 'false');
+        console.log('Сохранено состояние: развернут');
+    });
+    
+    chatBody.addEventListener('hide.bs.collapse', function () {
+        localStorage.setItem('assistantState', 'true');
+        console.log('Сохранено состояние: свернут');
+    });
 }
 
 // Функция для отправки сообщения ИИ-ассистенту
@@ -59,13 +117,13 @@ async function sendMessage() {
     input.value = '';
 
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('/api/chat/message', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ message })
+            body: JSON.stringify({ content: message })
         });
 
         if (!response.ok) {
@@ -73,7 +131,7 @@ async function sendMessage() {
         }
 
         const data = await response.json();
-        addMessage(data.response, 'assistant');
+        addMessage(data.message, 'assistant');
     } catch (error) {
         console.error('Ошибка:', error);
         addMessage('Извините, произошла ошибка. Попробуйте позже.', 'assistant');
