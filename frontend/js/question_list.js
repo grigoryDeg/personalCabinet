@@ -84,7 +84,7 @@ function displayQuestions(questions) {
         questionsListElement.innerHTML = `
             <div class="no-questions">
                 <i class="fas fa-inbox mb-3" style="font-size: 30px;"></i>
-                <p>В базе данных пока нет вопросов. Добавьте первый вопрос!</p>
+                <p>Вопросы не найдены.</p>
             </div>
         `;
         return;

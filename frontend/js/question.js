@@ -275,3 +275,14 @@ async function submitAnswer() {
 function flipCard() {
     document.querySelector('.question-card').classList.toggle('flipped');
 }
+
+function toggleAiCheck(button) {
+    button.classList.toggle('active');
+    if (button.classList.contains('active')) {
+        button.style.backgroundColor = '#764ba2'; // Фиолетовый цвет
+        button.style.color = '#fff'; // Белый цвет текста
+    } else {
+        button.style.backgroundColor = '#ccc'; // Серый цвет
+        button.style.color = '#764ba2'; // Цвет текста
+    }
+}

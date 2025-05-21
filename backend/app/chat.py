@@ -51,13 +51,19 @@ async def get_chat_history(current_user: User = Depends(get_current_user)):
                 return []
             
             # Получаем все сообщения из этой беседы
-            messages_query = select(Message).where(
-                Message.conversation_id == conversation.id
-            ).order_by(Message.created_at.asc())
+            messages_query = (
+                select(Message)
+                .where(Message.conversation_id == conversation.id)
+                .order_by(Message.created_at.desc())
+                .limit(10)
+            )
             
             messages_result = await session.execute(messages_query)
             messages = messages_result.scalars().all()
             
+            # Возвращаем сообщения в хронологическом порядке
+            messages = list(reversed(messages))
+
             return [
                 {
                     "content": msg.content,
@@ -153,3 +159,47 @@ async def send_message(message: dict, current_user: User = Depends(get_current_u
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail=f"Ошибка при обработке сообщения: {str(e)}"
             )
+
+
+@router.post("/chat/evaluate")
+async def evaluate_answer(data: dict, current_user: User = Depends(get_current_user)):
+    """
+    Оценка ответа пользователя на заданный вопрос
+    """
+    try:
+        question = data.get("question")
+        user_answer = data.get("user_answer")
+
+        if not question or not user_answer:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Вопрос и ответ пользователя не могут быть пустыми"
+            )
+
+        # Формируем промпт по заданному шаблону
+        prompt = (
+            "Контекст: Ты — интервьюер на собеседовании на позицию системного аналитика (Senior-уровень).\n\n"
+            f"Ты задал соискателю вопрос:\n\"{question}\"\n\n"
+            f"Кандидат ответил:\n\"{user_answer}\"\n\n"
+            "Теперь оцени его ответ коротко, в свободной форме, как это делает интервьюер — без структуры, без формальных пунктов. "
+            "Просто дай краткий комментарий, насколько ответ точный, чего в нём не хватает, и что могло бы звучать лучше."
+        )
+
+        # Получаем ответ от API Together
+        api_key = os.getenv("TOGETHER_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=500,
+                detail="API ключ Together не настроен"
+            )
+
+        client = Together(api_key=api_key)
+        response = client.chat.completions.create(
+            model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        return {"evaluation": response.choices[0].message.content}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

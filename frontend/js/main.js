@@ -76,7 +76,6 @@ function initAssistantState() {
     if (!chatBody) return;
     
     const savedState = localStorage.getItem('assistantState');
-    console.log('Загружено состояние:', savedState);
     
     // Инициализируем collapse через Bootstrap
     const bsCollapse = new bootstrap.Collapse(chatBody, {
@@ -95,14 +94,17 @@ function initAssistantListeners() {
     const chatBody = document.querySelector('#chatBody');
     if (!chatBody) return;
     
-    chatBody.addEventListener('show.bs.collapse', function () {
+    chatBody.addEventListener('shown.bs.collapse', function () {
         localStorage.setItem('assistantState', 'false');
-        console.log('Сохранено состояние: развернут');
+        
+        const messagesContainer = document.getElementById('chatMessages');
+        if (messagesContainer) {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
     });
     
     chatBody.addEventListener('hide.bs.collapse', function () {
         localStorage.setItem('assistantState', 'true');
-        console.log('Сохранено состояние: свернут');
     });
 }
 
@@ -143,10 +145,38 @@ function addMessage(text, type) {
     const messagesContainer = document.getElementById('chatMessages');
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}-message`;
-    messageDiv.textContent = text;
+    
+    // Если это сообщение от ассистента, обрабатываем его как markdown
+    if (type === 'assistant') {
+        messageDiv.innerHTML = marked.parse(text);
+        // Добавляем стили для code блоков
+        const codeBlocks = messageDiv.querySelectorAll('pre code');
+        codeBlocks.forEach(block => {
+            block.style.backgroundColor = '#f8f9fa';
+            block.style.padding = '1rem';
+            block.style.borderRadius = '4px';
+            block.style.display = 'block';
+            block.style.overflowX = 'auto';
+        });
+    } else {
+        // Для сообщений пользователя используем тот же шрифт, но без markdown
+        messageDiv.innerHTML = `<p>${text}</p>`;
+    }
+    
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
+// Обновляем также обработчик события shown.bs.collapse
+chatBody.addEventListener('shown.bs.collapse', function () {
+    const messagesContainer = document.getElementById('chatMessages');
+    if (messagesContainer) {
+        const lastMessage = messagesContainer.lastElementChild;
+        if (lastMessage) {
+            lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+    }
+});
 
 // Добавляем обработчик для отправки сообщений по Enter для отправки сообщений в чат ИИ-ассистенту
 document.addEventListener('DOMContentLoaded', function() {
@@ -173,3 +203,52 @@ function navigateToQuestionsPage(event) {
     event.preventDefault();
     window.location.href = '/question_list.html';
 }
+
+async function evaluateAnswer() {
+    if (!checkAuth()) return;
+
+    const questionText = document.querySelector('.question-text p').textContent;
+    const userAnswer = document.getElementById('userAnswer').value.trim();
+
+    if (!questionText || !userAnswer) {
+        alert('Вопрос и ответ не могут быть пустыми');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/chat/evaluate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ question: questionText, user_answer: userAnswer })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Ошибка при оценке ответа: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        addMessage(data.evaluation, 'assistant'); // Используем data.evaluation для добавления сообщения
+
+        // Открываем ИИ-ассистента, если он свернут
+        const chatBody = document.querySelector('#chatBody');
+        const bsCollapse = new bootstrap.Collapse(chatBody, {
+            toggle: false
+        });
+        bsCollapse.show();
+
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при оценке ответа. Пожалуйста, попробуйте позже.');
+    }
+}
+
+document.querySelector('.submit-btn').addEventListener('click', async function() {
+    const aiCheckBtn = document.querySelector('.ai-check-btn');
+    if (aiCheckBtn.classList.contains('active')) {
+        document.querySelector('.question-card').classList.add('flipped');
+        await evaluateAnswer();
+    }
+});
