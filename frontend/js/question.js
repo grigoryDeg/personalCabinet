@@ -218,7 +218,14 @@ async function submitAnswer() {
         
         // Переворачиваем карточку
         document.querySelector('.question-card').classList.add('flipped');
-        
+            
+        // Проверяем состояние AI-кнопки
+        const aiCheckBtn = document.querySelector('.ai-check-btn');
+        if (aiCheckBtn.classList.contains('active')) {
+            document.querySelector('.question-card').classList.add('flipped');
+            await evaluateAnswer();
+            return;
+        }
     } catch (error) {
         if (error.message.includes('404')) {
             // Получаем детали ошибки из объекта error

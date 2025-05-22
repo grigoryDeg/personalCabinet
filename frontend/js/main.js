@@ -28,13 +28,23 @@ async function loadChatHistory() {
             // Очищаем контейнер сообщений перед добавлением истории
             messagesContainer.innerHTML = '';
             
+            // Отключаем прокрутку на время загрузки сообщений
+            messagesContainer.style.overflow = 'hidden';
+            
             // Добавляем каждое сообщение из истории
             chatHistory.forEach(message => {
-                addMessage(message.content, message.is_from_user ? 'user' : 'assistant');
+                addMessage(message.content, message.is_from_user ? 'user' : 'assistant', false);
             });
             
-            // Прокручиваем к последнему сообщению
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            // Включаем прокрутку и используем setTimeout для корректного измерения высоты
+            messagesContainer.style.overflow = 'auto';
+            setTimeout(() => {
+                const scrollHeight = messagesContainer.scrollHeight;
+                if (scrollHeight > 0) {
+                    localStorage.setItem('chatScrollHeight', scrollHeight.toString());
+                }
+                messagesContainer.scrollTop = scrollHeight;
+            }, 0);
         }
     } catch (error) {
         console.error('Ошибка при загрузке истории чата:', error);
@@ -63,10 +73,10 @@ window.onload = async function() {
     
     // Загружаем профиль для всех авторизованных страниц
     if (isDashboard || isQuestion || isQuestionList) {
+        initAssistantListeners();
         await loadProfile();
         await loadChatHistory();
         initAssistantState();
-        initAssistantListeners();
     }
 };
 
@@ -94,13 +104,21 @@ function initAssistantListeners() {
     const chatBody = document.querySelector('#chatBody');
     if (!chatBody) return;
     
-    chatBody.addEventListener('shown.bs.collapse', function () {
+    chatBody.addEventListener('show.bs.collapse', function () {
         localStorage.setItem('assistantState', 'false');
-        
-        const messagesContainer = document.getElementById('chatMessages');
-        if (messagesContainer) {
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
+        setTimeout(() => {
+            const messagesContainer = document.getElementById('chatMessages');
+            if (messagesContainer) {
+                // Получаем сохраненное значение
+                const savedScrollHeight = localStorage.getItem('chatScrollHeight');
+                if (savedScrollHeight) {
+                    messagesContainer.scrollTop = parseInt(savedScrollHeight, 10);
+                } else {
+                    // Если сохраненного значения нет, используем текущую высоту
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+        }, 0);
     });
     
     chatBody.addEventListener('hide.bs.collapse', function () {
@@ -146,37 +164,28 @@ function addMessage(text, type) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${type}-message`;
     
-    // Если это сообщение от ассистента, обрабатываем его как markdown
-    if (type === 'assistant') {
-        messageDiv.innerHTML = marked.parse(text);
-        // Добавляем стили для code блоков
-        const codeBlocks = messageDiv.querySelectorAll('pre code');
-        codeBlocks.forEach(block => {
-            block.style.backgroundColor = '#f8f9fa';
-            block.style.padding = '1rem';
-            block.style.borderRadius = '4px';
-            block.style.display = 'block';
-            block.style.overflowX = 'auto';
-        });
-    } else {
-        // Для сообщений пользователя используем тот же шрифт, но без markdown
-        messageDiv.innerHTML = `<p>${text}</p>`;
-    }
+    // Обрабатываем все сообщения как markdown
+    messageDiv.innerHTML = marked.parse(text);
+    
+    // Добавляем стили для code блоков
+    const codeBlocks = messageDiv.querySelectorAll('pre code');
+    codeBlocks.forEach(block => {
+        block.style.backgroundColor = '#f8f9fa';
+        block.style.padding = '1rem';
+        block.style.borderRadius = '4px';
+        block.style.display = 'block';
+        block.style.overflowX = 'auto';
+    });
     
     messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
 
-// Обновляем также обработчик события shown.bs.collapse
-chatBody.addEventListener('shown.bs.collapse', function () {
-    const messagesContainer = document.getElementById('chatMessages');
-    if (messagesContainer) {
-        const lastMessage = messagesContainer.lastElementChild;
-        if (lastMessage) {
-            lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }
+    const scrollHeight = messagesContainer.scrollHeight;
+
+    if (scrollHeight > 0) {
+        localStorage.setItem('chatScrollHeight', scrollHeight.toString());
     }
-});
+    messagesContainer.scrollTop = scrollHeight;
+}
 
 // Добавляем обработчик для отправки сообщений по Enter для отправки сообщений в чат ИИ-ассистенту
 document.addEventListener('DOMContentLoaded', function() {
@@ -209,8 +218,12 @@ async function evaluateAnswer() {
 
     const questionText = document.querySelector('.question-text p').textContent;
     const userAnswer = document.getElementById('userAnswer').value.trim();
+    
+    // Получаем номер вопроса из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionNumber = urlParams.get('number');
 
-    if (!questionText || !userAnswer) {
+    if (!questionText || !userAnswer || !questionNumber) {
         alert('Вопрос и ответ не могут быть пустыми');
         return;
     }
@@ -222,7 +235,11 @@ async function evaluateAnswer() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ question: questionText, user_answer: userAnswer })
+            body: JSON.stringify({ 
+                question: questionText, 
+                user_answer: userAnswer,
+                question_number: parseInt(questionNumber)
+            })
         });
 
         if (!response.ok) {
@@ -230,7 +247,10 @@ async function evaluateAnswer() {
         }
 
         const data = await response.json();
-        addMessage(data.evaluation, 'assistant'); // Используем data.evaluation для добавления сообщения
+        
+        // Добавляем сообщение пользователя перед оценкой
+        addMessage(data.user_answer, 'user');
+        addMessage(data.evaluation, 'assistant');
 
         // Открываем ИИ-ассистента, если он свернут
         const chatBody = document.querySelector('#chatBody');
@@ -244,11 +264,3 @@ async function evaluateAnswer() {
         alert('Произошла ошибка при оценке ответа. Пожалуйста, попробуйте позже.');
     }
 }
-
-document.querySelector('.submit-btn').addEventListener('click', async function() {
-    const aiCheckBtn = document.querySelector('.ai-check-btn');
-    if (aiCheckBtn.classList.contains('active')) {
-        document.querySelector('.question-card').classList.add('flipped');
-        await evaluateAnswer();
-    }
-});

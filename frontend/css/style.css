@@ -451,8 +451,8 @@ body {
     height: 300px;
     overflow-y: auto;
     padding: 15px;
-    scroll-behavior: smooth;
-    transition: scroll-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* scroll-behavior: smooth;
+    transition: scroll-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);*/
 }
 
 .chat-input {

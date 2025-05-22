@@ -166,40 +166,87 @@ async def evaluate_answer(data: dict, current_user: User = Depends(get_current_u
     """
     Оценка ответа пользователя на заданный вопрос
     """
-    try:
-        question = data.get("question")
-        user_answer = data.get("user_answer")
+    async with async_session() as session:
+        try:
+            question = data.get("question")
+            user_answer = data.get("user_answer")
+            question_number = data.get("question_number")
 
-        if not question or not user_answer:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Вопрос и ответ пользователя не могут быть пустыми"
+            if not question or not user_answer or question_number is None:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Вопрос, ответ пользователя и номер вопроса не могут быть пустыми"
+                )
+
+            # Находим или создаем активную беседу
+            query = select(Conversation).where(
+                Conversation.user_id == current_user.id,
+                Conversation.is_active == True
+            )
+            result = await session.execute(query)
+            conversation = result.scalar_one_or_none()
+
+            if not conversation:
+                conversation = Conversation(
+                    user_id=current_user.id,
+                    created_at=datetime.now(),
+                    last_message_at=datetime.now(),
+                    is_active=True
+                )
+                session.add(conversation)
+                await session.commit()
+                await session.refresh(conversation)
+
+            # Формируем промпт по заданному шаблону
+            prompt = (
+                "Контекст: Ты — интервьюер на собеседовании на позицию системного аналитика (Senior-уровень).\n\n"
+                f"Ты задал соискателю вопрос:\n\"{question}\"\n\n"
+                f"Кандидат ответил:\n\"{user_answer}\"\n\n"
+                "Теперь оцени его ответ коротко, в свободной форме, как это делает интервьюер — без структуры, без формальных пунктов. "
+                "Просто дай краткий комментарий, насколько ответ точный, чего в нём не хватает, и что могло бы звучать лучше."
             )
 
-        # Формируем промпт по заданному шаблону
-        prompt = (
-            "Контекст: Ты — интервьюер на собеседовании на позицию системного аналитика (Senior-уровень).\n\n"
-            f"Ты задал соискателю вопрос:\n\"{question}\"\n\n"
-            f"Кандидат ответил:\n\"{user_answer}\"\n\n"
-            "Теперь оцени его ответ коротко, в свободной форме, как это делает интервьюер — без структуры, без формальных пунктов. "
-            "Просто дай краткий комментарий, насколько ответ точный, чего в нём не хватает, и что могло бы звучать лучше."
-        )
+            # Получаем ответ от API Together
+            api_key = os.getenv("TOGETHER_API_KEY")
+            if not api_key:
+                raise HTTPException(
+                    status_code=500,
+                    detail="API ключ Together не настроен"
+                )
 
-        # Получаем ответ от API Together
-        api_key = os.getenv("TOGETHER_API_KEY")
-        if not api_key:
-            raise HTTPException(
-                status_code=500,
-                detail="API ключ Together не настроен"
+            client = Together(api_key=api_key)
+            response = client.chat.completions.create(
+                model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+                messages=[{"role": "user", "content": prompt}]
             )
 
-        client = Together(api_key=api_key)
-        response = client.chat.completions.create(
-            model="meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
-            messages=[{"role": "user", "content": prompt}]
-        )
+            # Сохраняем сообщение пользователя
+            user_message = Message(
+                conversation_id=conversation.id,
+                content=f"**Ваш ответ на вопрос {question_number}:**\n{user_answer}",
+                is_from_user=True,
+                created_at=datetime.now()
+            )
+            session.add(user_message)
 
-        return {"evaluation": response.choices[0].message.content}
+            # Сохраняем ответ бота
+            bot_message = Message(
+                conversation_id=conversation.id,
+                content=f"**Ответ на вопрос {question_number} от ИИ:**\n{response.choices[0].message.content}",
+                is_from_user=False,
+                created_at=datetime.now()
+            )
+            session.add(bot_message)
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+            # Обновляем время последнего сообщения в беседе
+            conversation.last_message_at = datetime.now()
+            
+            await session.commit()
+
+            return {
+                "evaluation": bot_message.content,
+                "user_answer": user_message.content
+            }
+
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
