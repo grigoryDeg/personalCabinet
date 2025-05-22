@@ -513,13 +513,13 @@
     padding: 15px;
 }
 
-.modal-footer .btn-secondary {
+.modal-footer .btn-secondary, .modal-footer .btn-primary {
     background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
 }
 
-.modal-footer .btn-secondary:hover {
+.modal-footer .btn-secondary:hover, .modal-footer .btn-primary:hover {
     opacity: 0.9;
 }

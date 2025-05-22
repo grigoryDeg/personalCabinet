@@ -39,7 +39,6 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><span class="dropdown-item-text"><span id="username"></span></span></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><button class="dropdown-item" onclick="navigateToQuestionsPage(event)"><i class="fas fa-database me-2"></i>Реестр вопросов</button></li>
                         <li><button class="dropdown-item" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Выйти</button></li>
                     </ul>
                 </div>
@@ -129,16 +128,39 @@
 
     <!-- Модальное окно для добавления вопроса -->
     <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addQuestionModalLabel">Добавить новый вопрос</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="questionText" class="form-label">Текст вопроса</label>
-                        <textarea class="form-control" id="questionText" rows="5" placeholder="Введите текст вопроса..."></textarea>
+                    <!-- Вопрос -->
+                    <div class="mb-4">
+                        <h6 class="mb-3">Вопрос</h6>
+                        <div class="mb-3">
+                            <label for="questionText" class="form-label">Текст вопроса</label>
+                            <textarea class="form-control" id="questionText" rows="4" placeholder="Введите текст вопроса..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionMedia" class="form-label">Медиа к вопросу</label>
+                            <input type="file" class="form-control" id="questionMedia" accept="image/*">
+                            <div class="form-text">Поддерживаются изображения в форматах: JPG, PNG, GIF</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ответ -->
+                    <div class="mb-4">
+                        <h6 class="mb-3">Ответ</h6>
+                        <div class="mb-3">
+                            <label for="answerText" class="form-label">Текст ответа</label>
+                            <textarea class="form-control" id="answerText" rows="4" placeholder="Введите текст ответа..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="answerMedia" class="form-label">Медиа к ответу</label>
+                            <input type="file" class="form-control" id="answerMedia" accept="image/*">
+                            <div class="form-text">Поддерживаются изображения в форматах: JPG, PNG, GIF</div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

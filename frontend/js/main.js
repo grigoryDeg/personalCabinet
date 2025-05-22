@@ -132,11 +132,11 @@ async function sendMessage() {
     const message = input.value.trim();
     if (!message) return;
 
-    // Добавляем сообщение пользователя
     addMessage(message, 'user');
     input.value = '';
-
+    
     try {
+        showTypingAnimation();
         const response = await fetch('/api/chat/message', {
             method: 'POST',
             headers: {
@@ -151,9 +151,11 @@ async function sendMessage() {
         }
 
         const data = await response.json();
+        removeTypingAnimation();
         addMessage(data.message, 'assistant');
     } catch (error) {
         console.error('Ошибка:', error);
+        removeTypingAnimation();
         addMessage('Извините, произошла ошибка. Попробуйте позже.', 'assistant');
     }
 }
@@ -229,6 +231,7 @@ async function evaluateAnswer() {
     }
 
     try {
+        showTypingAnimation();
         const response = await fetch('/api/chat/evaluate', {
             method: 'POST',
             headers: {
@@ -247,8 +250,8 @@ async function evaluateAnswer() {
         }
 
         const data = await response.json();
+        removeTypingAnimation();
         
-        // Добавляем сообщение пользователя перед оценкой
         addMessage(data.user_answer, 'user');
         addMessage(data.evaluation, 'assistant');
 
@@ -261,6 +264,24 @@ async function evaluateAnswer() {
 
     } catch (error) {
         console.error('Ошибка:', error);
+        removeTypingAnimation();
         alert('Произошла ошибка при оценке ответа. Пожалуйста, попробуйте позже.');
+    }
+}
+
+function showTypingAnimation() {
+    const messagesContainer = document.getElementById('chatMessages');
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message assistant-message typing-animation';
+    typingDiv.innerHTML = '<div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+    typingDiv.id = 'typingAnimation';
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function removeTypingAnimation() {
+    const typingDiv = document.getElementById('typingAnimation');
+    if (typingDiv) {
+        typingDiv.remove();
     }
 }

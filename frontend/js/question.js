@@ -7,6 +7,11 @@ async function loadNextQuestion() {
         const urlParams = new URLSearchParams(window.location.search);
         const currentNumber = parseInt(urlParams.get('number')) || 1;
         
+        await fetchApi('/api/rememberQuestion', {
+            method: 'POST',
+            body: JSON.stringify({ question_number: currentNumber })
+        });
+
         // Сначала получаем общее количество вопросов
         const countResponse = await fetchApi('/api/questions/count');
         const totalCount = countResponse.count;
@@ -204,6 +209,10 @@ async function submitAnswer() {
         // Отображаем правильный ответ
         document.getElementById('correctAnswer').textContent = answerData.answer_text;
 
+        // Очищаем предыдущий медиа-контент перед добавлением нового
+        const existingMediaContainers = document.querySelectorAll('.answer-media-container');
+        existingMediaContainers.forEach(container => container.remove());
+        
         // Если есть медиа-контент в ответе, отображаем его
         if (answerData.is_there_media && answerData.media_url) {
             const answerMediaContainer = document.createElement('div');

@@ -353,14 +353,21 @@ async def get_questions(current_user: User = Depends(get_current_user)):
             raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
 
 @app.post("/api/rememberQuestion")
-async def remember_question(
-    question_data: dict,
-    current_user: User = Depends(get_current_user)
-):
+async def remember_question(question_data: dict, current_user: User = Depends(get_current_user)):
     async with async_session() as session:
         try:
-            # Проверяем существование вопроса
-            question = await session.get(Question, question_data["question_id"])
+            # Получаем вопрос по его номеру
+            question_query = text(
+                "WITH question_data AS ("
+                "SELECT q.*, "
+                "ROW_NUMBER() OVER (ORDER BY q.id ASC) as question_number "
+                "FROM questions q"
+                ") "
+                "SELECT * FROM question_data WHERE question_number = :question_number"
+            )
+            question_result = await session.execute(question_query, {"question_number": question_data["question_number"]})
+            question = question_result.fetchone()
+            
             if not question:
                 raise HTTPException(
                     status_code=status.HTTP_404_NOT_FOUND,
@@ -370,17 +377,17 @@ async def remember_question(
             # Создаем запись в истории просмотров
             history_entry = UserQuestionHistory(
                 user_id=current_user.id,
-                question_id=question_data["question_id"]
+                question_id=question.id
             )
             
             session.add(history_entry)
             await session.commit()
             
-            return {"status": "success"}
+            return {"status": "Запись о просмотре успешно создана"}
             
         except IntegrityError:
             # Если запись уже существует, просто возвращаем успех
-            return {"status": "success"}
+            return {"status": "Запись уже существует"}
         except Exception as e:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
