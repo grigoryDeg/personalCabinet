@@ -20,12 +20,34 @@ services:
       timeout: 5s
       retries: 5
 
+  minio:
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"  # API порт
+      - "9001:9001"  # Консоль управления
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    command: server --console-address ":9001" /data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     depends_on:
       postgres:
+        condition: service_healthy
+      minio:
         condition: service_healthy
     environment:
       POSTGRES_HOST: postgres
@@ -34,6 +56,11 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: personal_cabinet
       TOGETHER_API_KEY: ${TOGETHER_API_KEY}
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_BUCKET: images
     networks:
       - backend
     volumes:
@@ -54,6 +81,7 @@ services:
 
 volumes:
   postgres_data:
+  minio_data:
 
 networks:
   backend:

@@ -38,7 +38,6 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><span class="dropdown-item-text"><span id="username"></span></span></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><button class="dropdown-item" onclick="navigateToQuestionsPage(event)"><i class="fas fa-database me-2"></i>Реестр вопросов</button></li>
                         <li><button class="dropdown-item" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Выйти</button></li>
                     </ul>
                 </div>
@@ -51,15 +50,17 @@
                 <h3>Задачи из базы данных</h3>
                 <p>Решено 57/100</p>
             </div>
-            <div class="stat-card" onclick="navigateToQuestionPage(event)">
+            <div class="stat-card" style="background-color: #e0e0e0; cursor: not-allowed; opacity: 0.7;">
                 <i class="fas fa-robot"></i>
                 <h3>Задачи ИИ</h3>
                 <p>Решено 23/∞</p>
+                <p style="color: #666; font-style: italic; margin-top: 5px;">раздел в разработке</p>
             </div>
-            <div class="stat-card" onclick="navigateToQuestionPage(event)">
-                <i class="fas fa-comments"></i>
-                <h3>Вопросы с собеседований</h3>
-                <p>Найден ответ на 16/80 вопросов</p>
+            <div class="stat-card" style="background-color: #e0e0e0; cursor: not-allowed; opacity: 0.7;">
+                <i class="fas fa-code"></i>
+                <h3>Задачи SQL</h3>
+                <p>Решено 23/∞</p>
+                <p style="color: #666; font-style: italic; margin-top: 5px;">раздел в разработке</p>
             </div>
         </div>
     </div>

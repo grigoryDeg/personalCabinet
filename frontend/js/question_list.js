@@ -269,6 +269,9 @@ async function addQuestion() {
     if(!checkAuth()) return;
 
     const questionText = document.getElementById('questionText').value.trim();
+    const answerText = document.getElementById('answerText').value.trim();
+    const questionMedia = document.getElementById('questionMedia').files[0];
+    const answerMedia = document.getElementById('answerMedia').files[0];
     
     if (!questionText) {
         alert('Пожалуйста, введите текст вопроса');
@@ -276,17 +279,39 @@ async function addQuestion() {
     }
     
     try {
+        const formData = new FormData();
+        formData.append('text', questionText);
+        
+        if (answerText) {
+            formData.append('answer_text', answerText);
+        }
+        
+        if (questionMedia) {
+            formData.append('question_media', questionMedia);
+        }
+        
+        if (answerMedia) {
+            formData.append('answer_media', answerMedia);
+        }
+        
+        const token = localStorage.getItem('token');
         await fetchApi('/api/questions', {
             method: 'POST',
-            body: JSON.stringify({ text: questionText })
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         
         // Закрываем модальное окно
         const modal = bootstrap.Modal.getInstance(document.getElementById('addQuestionModal'));
         modal.hide();
         
-        // Очищаем поле ввода
+        // Очищаем все поля ввода
         document.getElementById('questionText').value = '';
+        document.getElementById('answerText').value = '';
+        document.getElementById('questionMedia').value = '';
+        document.getElementById('answerMedia').value = '';
         
         // Перезагружаем список вопросов
         loadQuestions();

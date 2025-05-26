@@ -1,3 +1,4 @@
+from math import log
 from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
@@ -7,6 +8,7 @@ from database import async_session, engine
 from sqlalchemy.orm import sessionmaker
 from together import Together
 import os
+import io
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
@@ -18,6 +20,9 @@ from sqlalchemy import func, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import select, func, delete
 from chat import router as chat_router
+from minio_config import init_minio, minio_client, MINIO_BUCKET  # Добавляем импорт MINIO_BUCKET
+from fastapi import Form, File, UploadFile
+
 
 # Настройки базы данных
 DATABASE_URL = "postgresql+asyncpg://admin:admin@postgres:5432/personal_cabinet"
@@ -69,6 +74,18 @@ async def init_test_users():
                 session.add(new_user)
         
         await session.commit()
+
+@app.on_event("startup")
+async def startup_event():
+    # Создаем таблицы в базе данных
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    
+    # Инициализируем тестовых пользователей
+    await init_test_users()
+    
+    # Инициализируем Minio
+    await init_minio()
 
 @app.post("/api/login")
 async def login(user_data: UserLogin):
@@ -126,51 +143,139 @@ async def health_check():
     return {"status": "ok"}
 
 @app.post("/api/questions")
-async def create_question(question: dict, current_user: User = Depends(get_current_user)):
+async def create_question(
+    text: str = Form(...),
+    answer_text: str = Form(None),
+    question_media: UploadFile = File(None),
+    answer_media: UploadFile = File(None),
+    current_user: User = Depends(get_current_user)
+):
     try:
-        if "text" not in question or not question["text"]:
+        if not text:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Текст вопроса обязателен"
             )
             
         async with async_session() as session:
-            # Получаем максимальный ID из существующих вопросов
-            max_id_query = select(func.max(Question.id))
-            max_id_result = await session.execute(max_id_query)
-            max_id = max_id_result.scalar() or 0
+            question_media_url = None
             
-            # Создаем новый вопрос с ID на единицу больше максимального
+            # Загрузка изображения вопроса, если оно есть
+            if question_media:
+                try:
+                    file_ext = os.path.splitext(question_media.filename)[1]
+                    question_file_name = f"question_{datetime.now().strftime('%Y%m%d_%H%M%S')}{file_ext}"
+                    
+                    # Читаем содержимое файла
+                    content = await question_media.read()
+                    
+                    # Загружаем в MinIO
+                    minio_client.put_object(
+                        MINIO_BUCKET,
+                        question_file_name,
+                        io.BytesIO(content),
+                        len(content),
+                        question_media.content_type
+                    )
+                    
+                    question_media_url = f"/minio/{MINIO_BUCKET}/{question_file_name}"
+                except Exception as e:
+                    print(f"Ошибка при загрузке изображения вопроса в MinIO: {str(e)}")
+            
+            # Создаем новый вопрос (без указания id - автоинкремент)
             new_question = Question(
-                id=max_id + 1,
-                question_text=question["text"],
+                question_text=text,
                 user_id=current_user.id,
                 created_at=datetime.now(),
-                is_there_media=False,
-                media_url=None
+                is_there_media=bool(question_media_url),
+                media_url=question_media_url
             )
+            
             session.add(new_question)
+            await session.flush()  # Получаем ID вопроса
+            print(f"Создан вопрос с ID: {new_question.id}")
+            
+            # Если есть ответ, создаем его
+            answer_id = None
+            if answer_text:
+                answer_media_url = None
+                
+                # Загрузка изображения ответа, если оно есть
+                if answer_media:
+                    try:
+                        file_ext = os.path.splitext(answer_media.filename)[1]
+                        answer_file_name = f"answer_{new_question.id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{file_ext}"
+                        
+                        # Читаем содержимое файла
+                        content = await answer_media.read()
+                        
+                        # Загружаем в MinIO
+                        minio_client.put_object(
+                            MINIO_BUCKET,
+                            answer_file_name,
+                            io.BytesIO(content),
+                            len(content),
+                            answer_media.content_type
+                        )
+                        
+                        answer_media_url = f"/minio/{MINIO_BUCKET}/{answer_file_name}"
+                    except Exception as e:
+                        print(f"Ошибка при загрузке изображения ответа в MinIO: {str(e)}")
+                
+                # Создаем ответ с привязкой к вопросу
+                new_answer = Answer(
+                    answer_text=answer_text,
+                    is_there_media=bool(answer_media_url),
+                    media_url=answer_media_url,
+                    question_id=new_question.id,  # Используем ID созданного вопроса
+                    user_id=current_user.id,
+                    created_at=datetime.now()
+                )
+                
+                session.add(new_answer)
+                print(f"Создан ответ для вопроса {new_question.id}")
+            
             try:
                 await session.commit()
-                await session.refresh(new_question)
+                print(f"Транзакция успешно завершена")
+                
+                response_data = {
+                    "status": "success",
+                    "question": {
+                        "id": new_question.id,
+                        "text": new_question.question_text,
+                        "media_url": question_media_url
+                    }
+                }
+                
+                if answer_text:
+                    response_data["answer"] = {
+                        "id": new_answer.id,
+                        "text": answer_text,
+                        "media_url": answer_media_url
+                    }
+                
+                return response_data
+                
             except IntegrityError as ie:
                 await session.rollback()
+                error_details = str(ie)
+                print(f"Детали ошибки целостности данных:")
+                print(f"Полное сообщение: {error_details}")
+                print(f"Параметры запроса: text={text}, user_id={current_user.id}")
+                print(f"ID созданного вопроса: {new_question.id}")
                 raise HTTPException(
                     status_code=status.HTTP_409_CONFLICT,
-                    detail="Конфликт при создании вопроса. Пожалуйста, попробуйте еще раз."
+                    detail=f"Конфликт при создании вопроса: {error_details}"
                 )
             
-            return {
-                "status": "success",
-                "question_id": new_question.id,
-                "question_text": new_question.question_text
-            }
     except HTTPException as he:
         raise he
     except Exception as e:
+        print(f"Неожиданная ошибка: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Ошибка при создании вопроса"
+            detail=f"Ошибка при создании вопроса: {str(e)}"
         )
 
 @app.get("/api/questions/count")
